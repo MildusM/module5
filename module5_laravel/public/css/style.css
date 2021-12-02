@@ -1,0 +1,12 @@
+.gradient{
+    background: linear-gradient(to right, #B983FF, #94B3FD);
+}
+
+.go-back{
+    height: 50px; 
+    width: 150px; 
+    color: #fff; 
+    border: 2px solid #fff; 
+    border-radius: 15px; 
+    text-align: center;
+}
