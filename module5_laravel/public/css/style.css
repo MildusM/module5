@@ -1,3 +1,6 @@
+
+    /* font-family: 'Lexend Deca', sans-serif !important; */
+
 .gradient{
     background: linear-gradient(to right, #B983FF, #94B3FD);
 }
@@ -9,4 +12,23 @@
     border: 2px solid #fff; 
     border-radius: 15px; 
     text-align: center;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    padding: 7px;
+    background-color: transparent;
+}
+
+.go-back:hover{
+    font-size: 20px !important;
+    padding: 8px;
+}
+
+.page-intro{
+    width: 40%;
+    text-align: center;
+    color: #fff;
+    margin: auto;
+    padding-top: 80px;
+    font-family: 'Lexend Deca', sans-serif !important;
 }
