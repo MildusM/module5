@@ -4,8 +4,6 @@
     font-family: 'Lexend Deca', sans-serif !important;
 }
 
-    /* font-family: 'Lexend Deca', sans-serif !important; */
-
 .gradient{
     background: linear-gradient(to right, #B983FF, #94B3FD);
 }
@@ -28,13 +26,19 @@
     background: linear-gradient(90deg, rgba(185,131,255,1) 0%, rgba(148,179,253,1) 100%); 
     color: #FFF;
     padding: 0.8rem 1.5rem;
-    border-radius: 6px;
+    border-radius: 30px;
     font-size: 1.3rem;
+    transition: ease-in 0.3s;
+}
+
+.btn-gradient:hover {
+    color: #FFF;
+    transform: scale(1.2);
 }
 
 .btn-outline-gradient {
     background: linear-gradient(to right, rgba(185,131,255,1),rgba(148,179,253,1));
-    border-radius: 20px;
+    border-radius: 30px;
     display: inline-block;
     padding: 5px;
     text-decoration: none;
@@ -45,8 +49,8 @@
     background: #fff;
     display: block;
     padding: .5rem 1.5rem;
-    border-radius: 16px;
-    color: #707070;
+    border-radius: 28px;
+    color: #b983ff;
 }
 
 .index {
