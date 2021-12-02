@@ -8,6 +8,20 @@
     background: linear-gradient(to right, #B983FF, #94B3FD);
 }
 
+.center{
+    text-align: center;
+}
+
+.section{
+    width: 60%;
+    margin: auto;
+}
+
+.input{
+    height: 35px;
+    width: 180px;
+}
+
 .go-back{
     height: 50px; 
     width: 150px; 
