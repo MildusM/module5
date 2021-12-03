@@ -1,10 +1,11 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: 'Lexend Deca', sans-serif !important;
 }
 
-    /* font-family: 'Lexend Deca', sans-serif !important; */
+body{
+    font-family: 'Lexend Deca', sans-serif !important;
+}
 
 .gradient{
     background: linear-gradient(to right, #B983FF, #94B3FD);
@@ -44,6 +45,7 @@
     padding: 0.8rem 1.5rem;
     border-radius: 6px;
     font-size: 1.3rem;
+    border: none;
 }
 
 .btn-outline-gradient {

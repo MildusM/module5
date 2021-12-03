@@ -35,6 +35,9 @@
                         {{-- <input type="text"> --}}
                     </div>
                 </div>
+                <br><br><br><br>
+                <button class="btn-gradient">Generate</button>
+
             </form>
         </div>
 
