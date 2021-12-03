@@ -21,8 +21,16 @@ body{
 }
 
 .input{
+    padding: 0 4px;
     height: 35px;
     width: 180px;
+}
+
+/* Input small */
+.input-s{
+    padding: 0 4px;
+    height: 35px;
+    width: 85px;
 }
 
 .go-back{
