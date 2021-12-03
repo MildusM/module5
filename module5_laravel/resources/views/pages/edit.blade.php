@@ -62,17 +62,42 @@
         ctx.fillStyle = 'rgb(0,0,0)';
         ctx.fillText('hahahha', 200, 200);
     </script> -->
-    <canvas id="canvas" style="border: 1px solid #333;"></canvas>
+    <canvas id="canvas" style="border: 1px solid #333;"></canvas><br><br>
 
+    <div style="position: absolute; left: 50px;">
+        <button id="edit" class="labelRadio mr-3"><i class="fas fa-check"></i></button><span style="font-weight:200; font-size: large;"> Edit</span> <br><br>
+        <button class="labelRadio mr-3"><i class="fas fa-check"></i></button><span style="font-weight:200; font-size: large;"> Find path</span><br><br>
+    </div>
+    <div id="save">
+        {{-- <button style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3">Save</button> --}}
+    </div>
     
 
     <script>
+
+        // Canvas
 
         let canvas = document.querySelector('#canvas');
         let ctx = canvas.getContext('2d');
 
         ctx.canvas.width = (window.innerWidth - 20);
         ctx.canvas.height = (window.innerHeight - 20);
+
+        // Edit
+
+        let editRadio = document.querySelector('#edit');
+        let saveDiv = document.querySelector('#save');
+        
+        window.addEventListener('click', function(){
+            if(editRadio == document.activeElement){
+                saveDiv.innerHTML = `<button style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3">Save</button>`;
+            }
+            else{
+                saveDiv.innerHTML = ``;
+            }
+        });
+
+        // Collapse
 
         let collapseWorldTrue = false;
         let collapseNodeTrue = false;
