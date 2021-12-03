@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <br><br><br><br>
-                <button class="btn-gradient">Generate</button>
+                <button disabled class="btn-gradient">Generate</button>
 
             </form>
         </div>

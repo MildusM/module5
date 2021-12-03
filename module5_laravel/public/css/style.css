@@ -3,13 +3,10 @@
     margin: 0;
 }
 
-<<<<<<< HEAD
 body{
     font-family: 'Lexend Deca', sans-serif !important;
 }
 
-=======
->>>>>>> b9cb8a3653352333b22af1dc745e8d3ca9bcf21f
 .gradient{
     background: linear-gradient(to right, #B983FF, #94B3FD);
 }
@@ -48,16 +45,23 @@ body{
     padding: 0.8rem 1.5rem;
     border-radius: 30px;
     font-size: 1.3rem;
-<<<<<<< HEAD
     border: none;
-=======
     transition: ease-in 0.3s;
+}
+
+.btn-gradient:disabled{
+    filter: brightness(0.5);
+    /* cursor: not-allowed; */
+    transition: ease-in 0s;
 }
 
 .btn-gradient:hover {
     color: #FFF;
-    transform: scale(1.2);
->>>>>>> b9cb8a3653352333b22af1dc745e8d3ca9bcf21f
+    transform: scale(1.1);
+}
+
+.btn-gradient:hover:disabled{
+    transform: scale(1);
 }
 
 .btn-outline-gradient {
