@@ -62,26 +62,31 @@
         ctx.fillStyle = 'rgb(0,0,0)';
         ctx.fillText('hahahha', 200, 200);
     </script> -->
-    <canvas id="canvas" style="border: 1px solid #333;"></canvas><br><br>
+    {{-- <canvas id="canvas"></canvas><br><br> --}}
+    <canvas id="canvas" class="viewCanvas" style="border: 1px solid #333;"></canvas>
 
     <div style="position: absolute; left: 50px;">
         <button id="edit" class="labelRadio mr-3"><i class="fas fa-check"></i></button><span style="font-weight:200; font-size: large;"> Edit</span> <br><br>
         <button class="labelRadio mr-3"><i class="fas fa-check"></i></button><span style="font-weight:200; font-size: large;"> Find path</span><br><br>
     </div>
     <div id="save">
-        {{-- <button style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3">Save</button> --}}
+        {{-- <button style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3 btn-save">Save</button> --}}
     </div>
     
 
     <script>
 
-        // Canvas
+        // Canvas 
 
         let canvas = document.querySelector('#canvas');
         let ctx = canvas.getContext('2d');
 
-        ctx.canvas.width = (window.innerWidth - 20);
-        ctx.canvas.height = (window.innerHeight - 20);
+        ctx.fillRect(25, 25, 100, 100);
+        ctx.clearRect(45, 45, 60, 60);
+        ctx.strokeRect(50, 50, 50, 50);
+
+        // ctx.canvas.width = (window.innerWidth - 20);
+        // ctx.canvas.height = (window.innerHeight - 20);
 
         // Edit
 
