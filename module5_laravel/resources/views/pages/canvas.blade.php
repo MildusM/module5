@@ -8,7 +8,7 @@
             <a href="/edit"><button class="btn btn-light">Edit</button></a>
             <button class="btn btn-outline-light">Delete</button>
 
-            <a href="/load"><button class="fs-4 go-back-c btn"><i class="fal fa-chevron-left mr-1"></i><span style="margin-left: 10px">Go back</span></button></a>
+            <a href="/load/noOrder"><button class="fs-4 go-back-c btn"><i class="fal fa-chevron-left mr-1"></i><span style="margin-left: 10px">Go back</span></button></a>
         </div>
 
     <script>

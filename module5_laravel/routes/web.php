@@ -18,10 +18,9 @@ use App\Http\Controllers\PagesController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test', [worldsController::class, 'index']);
+Route::get('/load/{order}', [worldsController::class, 'load']);
 
 Route::get('/index', [PagesController::class, 'index']);
-Route::get('/load', [PagesController::class, 'load']);
 Route::get('/edit/{world_id}', [PagesController::class, 'edit']);
 Route::get('/create', [PagesController::class, 'create']);
 Route::get('/canvas', [PagesController::class, 'canvas']);

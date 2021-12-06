@@ -15,4 +15,9 @@ class World extends Model
     public $primaryKey = 'id';
     // Timestamps
     public $timestamps = true;
+
+    public function Node()
+    {
+        return $this->belongsTo('App\Models\Node');
+    }
 }

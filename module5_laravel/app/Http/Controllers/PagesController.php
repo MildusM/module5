@@ -22,6 +22,7 @@ class PagesController extends Controller
 
 
         return view('pages.edit')->with('world_data', $world_data)->with('node_data', $node_data);
+
     }
 
     public function create(){

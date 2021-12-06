@@ -17,7 +17,7 @@
                     <a href="/create" class="btn btn-lg btn-gradient">Create</a>
                 </div>
                 <div class="col-lg-6">
-                    <a href="/load" class="btn btn-lg btn-outline-gradient"><span>Load</span></a>
+                    <a href="/load/noOrder" class="btn btn-lg btn-outline-gradient"><span>Load</span></a>
                 </div>
             </div>
             
