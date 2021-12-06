@@ -12,10 +12,6 @@ class PagesController extends Controller
         return view('pages.index');
     }
 
-    public function load(){
-        return view('pages.load');
-    }
-
     public function edit(){
         return view('pages.edit');
     }

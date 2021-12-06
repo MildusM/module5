@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Node extends Model
 {
     use HasFactory;
+
+    // Table Name
+    protected $table = 'nodes';
+    // Primary Key
+    public $primaryKey = 'id';
+    // Timestamps
+    public $timestamps = false;
+
+    public function Node_World()
+    {
+        return $this->hasMany('App\Models\World');
+    }
 }

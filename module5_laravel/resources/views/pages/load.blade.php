@@ -16,12 +16,14 @@
     {{-- Worlds --}}
 
     <div class="container load">
-        
-        <select name="orderBy" id="orderByWorld" class="input orderBy">
+
+        <select onchange="selected()" name="orderByWorld" id="orderByWorld" class="input orderBy">
             <option value="" disabled selected>Order By</option>
-            <option value="">Latest</option>
-            <option value="">A-Z</option>
-            <option value="">Z-A</option>
+            <option value="latest">Latest</option>
+            <option value="oldest">Oldest</option>
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+            <option value="type">World Type</option>
         </select>
 
         <div class="loadWorlds">
@@ -32,41 +34,25 @@
                 <div class="col-lg-3">type</div>
                 <div class="col-lg-3">number of nodes</div>
             </div>
-            
-        
+
+            @foreach ($data as $world)
             <div class="row worldValues">
 
                 <div class="col-lg-3 radioInput">
                     <button class="labelRadio"><i class="fas fa-check"></i></button>
                 </div>
                 <div class="col-lg-3">
-                    <p>nAMEoFtHEwORLD</p>
+                    <p>{{$world->world_name}}</p>
                 </div>
                 <div class="col-lg-3">
-                    <p>Branch</p>
+                    <p>{{$world->world_type}}</p>
                 </div>
                 <div class="col-lg-3">
-                    <p>15</p>
+                    <p>{{$world->join('nodes', 'nodes.world_id', '=', 'worlds.id')->where('nodes.world_id', '=', $world->id)->count()}}</p>
                 </div>
 
             </div>
-
-            <div class="row worldValues">
-                
-                <div class="col-lg-3 radioInput">
-                    <button class="labelRadio"><i class="fas fa-check"></i></button>
-                </div>
-                <div class="col-lg-3">
-                    <p>nAMEoFtHEwORLD2</p>
-                </div>
-                <div class="col-lg-3">
-                    <p>Circular</p>
-                </div>
-                <div class="col-lg-3">
-                    <p>4</p>
-                </div>
-
-            </div>
+            @endforeach
 
             <a href="/canvas"><button class="btn-gradient load-btn">Load</button></a>
 
@@ -78,6 +64,12 @@
 
     </div>
 
+    <script>
+        function selected() {
+            let order = document.querySelector('#orderByWorld').value;
+            window.location.href = `/load/${order}`;
+        }
+    </script>
     
 
 @endsection
