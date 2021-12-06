@@ -13,8 +13,6 @@
 
     </div>
 
-    
-
     <div class="my-5 section">
 
         {{-- Collapse --}}
@@ -40,8 +38,8 @@
                 </div>
             </div>
 
-            <div class="conatiner" id="node_info">
-
+            <div class="container" id="node_info">
+                
 
             </div>
         </div>
@@ -109,7 +107,15 @@
         let world_info = document.querySelector('#world_info');
         let node_info = document.querySelector('#node_info');
 
+        let world_data_info = {!! json_encode($world_data) !!};
+         console.log(world_data_info);
+         
+        let node_data_info = {!! json_encode($node_data) !!};
+         console.log(node_data_info);
+
         function collapseWorld(){
+
+            // let blabla = world_data_info['world_description'];
            
            if(collapseWorldTrue == false){
                 collapseWorldTrue = true;
@@ -117,12 +123,12 @@
                 world_info.innerHTML = `    <div class="row">
                                                 <div class="col-lg-6">
                                                     <h2>Description</h2>
-                                                    <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor molestias recusandae soluta earum perspiciatis facere dicta dignissimos eum tempore corrupti!</p>
+                                                    <p class="">${world_data_info['world_description']}</p>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <h2>Worldinfo</h2>
-                                                    <p>Name: </p>
-                                                    <p>Type: </p>
+                                                    <p>Name: ${world_data_info['world_name']}</p>
+                                                    <p>Type: ${world_data_info['world_type']}</p>
                                                     <p>Number of nodes: </p>
                                                 </div>
                                             </div>`;
@@ -142,7 +148,7 @@
                 node_info.style.marginLeft = '3rem';
                 node_info.innerHTML = `<div class="row" >
                     <div class="col-lg-4">
-                        <p >Name:</p>
+                        <p >Name: </p>
                     </div>
                     <div class="col-lg-4">
                         <p>Id: </p>
@@ -150,56 +156,24 @@
                     <div class="col-lg-4">
                         <p>Exits:</p>
                     </div>
-                </div>
+                </div>`;
+                for(let i = 0; i < 3; i++){
+
+                
+                node_info.innerHTML += `
 
                 <div class="row" style="font-weight: 300;">
                     <div class="col-lg-4">
-                        <p>nAMEoFtHEfIRSTnODE</p>
+                        <p>${node_data_info[i]['node_name']}</p>
                     </div>
                     <div class="col-lg-4">
-                        <p>1</p>
+                        <p>${node_data_info[i]['id']}</p>
                     </div>
                     <div class="col-lg-4">
-                        <p>4, 2</p>
+                        <p>${node_data_info[i]['node_exits']}</p>
                     </div>
-                </div>
-
-                <div class="row" style="font-weight: 300;">
-                    <div class="col-lg-4">
-                        <p>nAMEoFtHEsECONDnODE</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>2</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>1, 2</p>
-                    </div>
-                </div>
-
-                <div class="row" style="font-weight: 300;">
-                    <div class="col-lg-4">
-                        <p>nAMEoFtHEtHIRDnODE</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>3</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>2, 4</p>
-                    </div>
-                </div>
-
-                <div class="row" style="font-weight: 300;">
-                    <div class="col-lg-4">
-                        <p>nAMEoFtHEfOURTHnODE</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>4</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>3, 1</p>
-                    </div>
-                </div> `;
-           }
+                </div>`;
+           }}
            else{
                collapseNodeTrue = false;
                node_info.style.margin = '0px';

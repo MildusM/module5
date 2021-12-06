@@ -22,6 +22,8 @@ Route::get('/test', [worldsController::class, 'index']);
 
 Route::get('/index', [PagesController::class, 'index']);
 Route::get('/load', [PagesController::class, 'load']);
-Route::get('/edit', [PagesController::class, 'edit']);
+Route::get('/edit/{world_id}', [PagesController::class, 'edit']);
 Route::get('/create', [PagesController::class, 'create']);
 Route::get('/canvas', [PagesController::class, 'canvas']);
+
+Route::get('/createWorld', [worldsController::class, 'create']);

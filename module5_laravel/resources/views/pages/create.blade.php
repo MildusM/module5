@@ -13,18 +13,30 @@
 
     </div>
 
+    @if (\Session::has('create_success'))
+        <div style="width: 200px;" class="">
+            <span><p class="m-3"><i class="fal fa-check mr-4"></i> {!! \Session::get('create_success') !!}</p></span>
+        </div>
+    @endif
+
     {{-- Create Form --}}
+
+    {{-- composer require laravelcollective/html --}}
 
     <div class="my-5 center section">
 
         <div class="container">
-            <form action="#">
+            {{Form::open(array('action' => 'App\Http\Controllers\worldsController@create', 'method' => 'get'))}}
+            {{-- <form action="#"> --}}
                 <div class="row">
                     <div class="col-lg-4">
-                        <input onchange="selected()" class="input worldNameInput" type="text" required placeholder="Name of your world...">
+                        {{Form::text('world_name', '', ['class' => 'input worldNameInput', 'type' => 'text', 'required' => '', 'placeholder' => 'Name of your world...'])}}
+                        {{-- <input onchange="selected()" class="input worldNameInput" type="text" required placeholder="Name of your world..."> --}}
                     </div>
                     <div class="col-lg-4">
-                        <select onchange="selected()" name="" id="options" class="input">
+                   {{-- {{Form::select('select_type',['Type of world' => ['Rectangular', 'Circular', 'Branch']
+                        ])}} --}}
+                        <select onchange="selected()" name="world_type" id="options" class="input">
                             <option class="no_order" value="no_order" disabled selected>Type of world</option>
                             <option class="no_order" value="rectangular">Rectangular</option>
                             <option class="popularity" value="circular">Circular</option>
@@ -36,14 +48,19 @@
                     </div>
                 </div>
 
-                <textarea class="mt-5 p-2" onkeyup="textareaKeyDown()" onkeydown="textareaKeyDown()" minlength="10" maxlength="2064" required name="" id="textarea" cols="50" rows="10" placeholder="Describe your world..."></textarea>
+                {{-- {{Form::text('test', '',['class' => 'b', 'onchange' => 'selected()'])}} --}}
+
+                {{Form::textarea('description', '',['class' => 'mt-5 p-2', 'onkeyup' => 'textareaKeyDown()', 'onkeydown' => 'textareaKeyDown()', 'minlength' => '10', 'maxlength' => '2064', 'required' => '', 'id' => 'textarea', 'cols' => '50', 'rows' => '10', 'placeholder' => 'Describe your world...'])}}
+                {{-- <textarea class="mt-5 p-2" onkeyup="textareaKeyDown()" onkeydown="textareaKeyDown()" minlength="10" maxlength="2064" required name="" id="textarea" cols="50" rows="10" placeholder="Describe your world..."></textarea> --}}
                 {{-- 'onkeyup' => 'textareaKeyDown()', 'onkeydown' => 'textareaKeyDown()' --}}
                 <br><span class="q">0</span>
                 <span>/2064</span><br><br>
                 <br>
-                <button disabled class="btn-gradient btn-generate">Generate</button>
+                {{Form::submit('Generate', ['disabled' => '', 'class' => 'btn-gradient btn-generate'])}}
+                {{-- <button disabled class="btn-gradient btn-generate">Generate</button> --}}
 
-            </form>
+            {{-- </form> --}}
+            {{ Form::close() }}
         </div>
 
     </div>
@@ -69,23 +86,23 @@
         function selected(){
         let selected = select.value;
 
-        if(worldNameInput.value == '' || selected == 'no_order'){
+        if(selected == 'no_order'){
             return;
         }   
         else{
-            worldNameInput.disabled = true;
-            select.disabled = true;
+            // worldNameInput.disabled = true;
+            // select.disabled = true;
             btn_generate.disabled = false;
             if(selected == 'rectangular'){
-                type_values.innerHTML = `   <input required type="text" placeholder="x..." class="input-s ml-1">
-                                            <input required type="text" placeholder="y..." class="input-s">`;
+                type_values.innerHTML = `   <input required type="text" name="rectangle_x" placeholder="x..." class="input-s ml-1">
+                                            <input required type="text" name="rectangle_y" placeholder="y..." class="input-s">`;
             }
             if(selected == 'circular'){
-                type_values.innerHTML = `<input type="number" required class="input" placeholder="Number of nodes...">`;
+                type_values.innerHTML = `<input type="number" required name="circle_rooms" class="input" placeholder="Number of nodes...">`;
             }
             if(selected == 'branch'){
-                type_values.innerHTML = ` <input type="text" class="input-s" required placeholder="Factor...">
-                                <input type="text" class="input-s" required placeholder="Init range...">`;
+                type_values.innerHTML = `   <input type="text" class="input-s" required name="branch_factor" placeholder="Factor...">
+                                            <input type="text" class="input-s" required name="branch_init_range" placeholder="Init range...">`;
             }
         }
 
