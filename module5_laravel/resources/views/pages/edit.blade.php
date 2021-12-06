@@ -110,8 +110,11 @@
         let world_data_info = {!! json_encode($world_data) !!};
          console.log(world_data_info);
          
-        let node_data_info = {!! json_encode($node_data) !!};
+         let node_data_info = {!! json_encode($node_data) !!};
          console.log(node_data_info);
+         
+        let node_number = {!! json_encode($test) !!};
+         console.log(node_number[0]['COUNT(*)']);
 
         function collapseWorld(){
 
@@ -129,7 +132,7 @@
                                                     <h2>Worldinfo</h2>
                                                     <p>Name: ${world_data_info['world_name']}</p>
                                                     <p>Type: ${world_data_info['world_type']}</p>
-                                                    <p>Number of nodes: </p>
+                                                    <p>Number of nodes: ${node_number[0]['COUNT(*)']}</p>
                                                 </div>
                                             </div>`;
            }
