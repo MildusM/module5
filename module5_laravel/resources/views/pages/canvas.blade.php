@@ -11,7 +11,7 @@
             <a href="/load/noOrder"><button class="fs-4 go-back-c btn"><i class="fal fa-chevron-left mr-1"></i><span style="margin-left: 10px">Go back</span></button></a>
         </div>
 
-    <script>
+    {{-- <script>
 
         let canvas = document.querySelector('#canvas');
         let ctx = canvas.getContext('2d');
@@ -19,6 +19,6 @@
         ctx.canvas.width = (window.innerWidth);
         ctx.canvas.height = (window.innerHeight);
         
-    </script>
+    </script> --}}
 
 @endsection

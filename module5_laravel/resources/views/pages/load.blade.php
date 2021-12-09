@@ -63,13 +63,6 @@
         
 
     </div>
-
-    <script>
-        function selected() {
-            let order = document.querySelector('#orderByWorld').value;
-            window.location.href = `/load/${order}`;
-        }
-    </script>
     
 
 @endsection
