@@ -75,88 +75,20 @@
 
     <script>
          // Collapse
+         let collapseWorldTrue = false;
+let collapseNodeTrue = false;
+let world_info = document.querySelector('#world_info');
+let node_info = document.querySelector('#node_info');
 
-    let collapseWorldTrue = false;
-    let collapseNodeTrue = false;
-    let world_info = document.querySelector('#world_info');
-    let node_info = document.querySelector('#node_info');
+let world_data_info = {!! json_encode($world_data) !!};
+// console.log(world_data_info);
 
-    let world_data_info = {!! json_encode($world_data) !!};
-    // console.log(world_data_info);
+let node_data_info = {!! json_encode($node_data) !!};
+// console.log(node_data_info);
+
+let node_number = {!! json_encode($test) !!};
+// console.log(node_number[0]['COUNT(*)']);
     
-    let node_data_info = {!! json_encode($node_data) !!};
-    // console.log(node_data_info);
-    
-    let node_number = {!! json_encode($test) !!};
-    // console.log(node_number[0]['COUNT(*)']);
-
-    function collapseWorld(){
-
-        // let blabla = world_data_info['world_description'];
-        
-        if(collapseWorldTrue == false){
-            collapseWorldTrue = true;
-            world_info.style.margin = '1.5rem';
-            world_info.innerHTML = `    <div class="row">
-                                            <div class="col-lg-6">
-                                                <h2>Description</h2>
-                                                <p class="">${world_data_info['world_description']}</p>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <h2>Worldinfo</h2>
-                                                <p>Name: ${world_data_info['world_name']}</p>
-                                                <p>Type: ${world_data_info['world_type']}</p>
-                                                <p>Number of nodes: ${node_number[0]['COUNT(*)']}</p>
-                                            </div>
-                                        </div>`;
-        }
-        else{
-            collapseWorldTrue = false;
-            world_info.style.margin = '0px';
-            world_info.innerHTML = ``;
-        }
-    }
-
-    function collapseNode(){
-        if(collapseNodeTrue == false){
-            collapseNodeTrue = true;
-            node_info.style.margin = '1.5rem';
-            node_info.style.marginRight = '3rem';
-            node_info.style.marginLeft = '3rem';
-            node_info.innerHTML = `<div class="row" >
-                <div class="col-lg-4">
-                    <p >Name: </p>
-                </div>
-                <div class="col-lg-4">
-                    <p>Id: </p>
-                </div>
-                <div class="col-lg-4">
-                    <p>Exits:</p>
-                </div>
-            </div>`;
-            for(let i = 0; i < 3; i++){
-
-            
-            node_info.innerHTML += `
-
-            <div class="row" style="font-weight: 300;">
-                <div class="col-lg-4">
-                    <p>${node_data_info[i]['node_name']}</p>
-                </div>
-                <div class="col-lg-4">
-                    <p>${node_data_info[i]['id']}</p>
-                </div>
-                <div class="col-lg-4">
-                    <p>${node_data_info[i]['node_exits']}</p>
-                </div>
-            </div>`;
-        }}
-        else{
-            collapseNodeTrue = false;
-            node_info.style.margin = '0px';
-            node_info.innerHTML = ``;
-        }
-    }
     </script>
 
 
