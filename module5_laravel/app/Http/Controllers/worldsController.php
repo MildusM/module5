@@ -48,7 +48,14 @@ class worldsController extends Controller
         // $test = world::find($world_id);
 
         if($rectangle_x == !NULL){
-            $qOfNodes = ($rectangle_x * $rectangle_y);
+        
+        } 
+        if($branch_factor == !NULL){
+            // $qOfNodes = ;
+            $test = $qOfNodes;
+        }
+        if($circle_rooms == !NULL){
+            $qOfNodes = $circle_rooms;
             // $test = $qOfNodes;
             for($i = 0; $i < $qOfNodes; $i++){
                 if($i == 0){
@@ -82,27 +89,6 @@ class worldsController extends Controller
                 
             }
         }
-        if($branch_factor == !NULL){
-            $qOfNodes = ($rectangle_x * $rectangle_y);
-            $test = $qOfNodes;
-        }
-        if($circle_rooms == !NULL){
-            $qOfNodes = ($rectangle_x * $rectangle_y);
-            $test = $qOfNodes;
-        }
-
-        // if($rectangle_x == 'hello'){
-        //     $test = 'Rectangle'
-        // }
-        // if($branch_factor !== NULL){
-        //     $test = 'Branch'
-        // }
-        // if($circle_rooms !== NULL){
-        //     $test = 'circular';
-        // }
-
-        // $test = $request->input('test'); 
-        // $message = $request->input('message');
 
         return back()->with('create_success', 'World Created');
         // return view('test')->with('test', $test);
