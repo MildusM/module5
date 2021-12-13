@@ -38,8 +38,9 @@
             @foreach ($data as $world)
             <div class="row worldValues">
 
-                <div class="col-lg-3 radioInput">
-                    <button class="labelRadio"><i class="fas fa-check"></i></button>
+                <div class="col-lg-3 radioInput radio-toolbar">
+                        <input type="radio"  name="radioBtn" id="{{$world->id}}" value="{{$world->id}}">
+                        <label for="{{$world->id}}"><i class="fas fa-check"></i></label>
                 </div>
                 <div class="col-lg-3">
                     <p>{{$world->world_name}}</p>
@@ -54,7 +55,7 @@
             </div>
             @endforeach
 
-            <a href="/canvas"><button class="btn-gradient load-btn">Load</button></a>
+            <button class="btn-gradient load-btn" onclick="loadCanvas()">Load</button>
 
         </div>
 
@@ -68,6 +69,11 @@
         function selected() {
             let order = document.querySelector('#orderByWorld').value;
             window.location.href = `/load/${order}`;
+        }
+
+        function loadCanvas() {
+            let id = document.querySelector('input[name = "radioBtn"]:checked').id;
+            window.location.href = `/canvas/${id}`;
         }
     </script>
     

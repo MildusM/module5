@@ -29,7 +29,9 @@ class PagesController extends Controller
         return view('pages.create');
     }
 
-    public function canvas(){
-        return view('pages.canvas');
+    public function canvas($world_id){
+
+        return view('pages.canvas')->with('world_id', $world_id);
+        
     }
 }
