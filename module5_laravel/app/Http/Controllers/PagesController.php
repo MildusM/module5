@@ -26,7 +26,7 @@ class PagesController extends Controller
         // $node_data = Node::find(2);
 
 
-        return view('pages.edit')->with('world_data', $world_data)->with('node_data', $node_data)->with('test', $world_number_nodes);
+        return view('pages.edit')->with('world_data', $world_data)->with('node_data', $node_data)->with('test', $world_number_nodes)->with('world_id', $world_id);
 
     }
 
@@ -37,6 +37,6 @@ class PagesController extends Controller
     public function canvas($world_id){
 
         return view('pages.canvas')->with('world_id', $world_id);
-        
+
     }
 }
