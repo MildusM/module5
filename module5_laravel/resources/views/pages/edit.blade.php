@@ -61,7 +61,9 @@
         ctx.fillText('hahahha', 200, 200);
     </script> -->
     {{-- <canvas id="canvas"></canvas><br><br> --}}
-    <canvas id="canvas" class="viewCanvas" style="border: 1px solid #333;"></canvas>
+    <canvas id="canvas" class="" style="border: 1px solid #333;"></canvas> 
+
+    <img src=".../media/elefant.png" alt="" id="source">
 
     <div style="position: absolute; left: 50px;">
         <button id="edit" class="labelRadio mr-3"><i class="fas fa-check"></i></button><span style="font-weight:200; font-size: large;"> Edit</span> <br><br>
@@ -70,119 +72,91 @@
     <div id="save">
         {{-- <button style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3 btn-save">Save</button> --}}
     </div>
-    
 
     <script>
+         // Collapse
 
-        // Canvas 
+    let collapseWorldTrue = false;
+    let collapseNodeTrue = false;
+    let world_info = document.querySelector('#world_info');
+    let node_info = document.querySelector('#node_info');
 
-        let canvas = document.querySelector('#canvas');
-        let ctx = canvas.getContext('2d');
+    let world_data_info = {!! json_encode($world_data) !!};
+    console.log(world_data_info);
+    
+    let node_data_info = {!! json_encode($node_data) !!};
+    console.log(node_data_info);
+    
+    let node_number = {!! json_encode($test) !!};
+    console.log(node_number[0]['COUNT(*)']);
 
-        ctx.fillRect(25, 25, 100, 100);
-        ctx.clearRect(45, 45, 60, 60);
-        ctx.strokeRect(50, 50, 50, 50);
+    function collapseWorld(){
 
-        // ctx.canvas.width = (window.innerWidth - 20);
-        // ctx.canvas.height = (window.innerHeight - 20);
-
-        // Edit
-
-        let editRadio = document.querySelector('#edit');
-        let saveDiv = document.querySelector('#save');
+        // let blabla = world_data_info['world_description'];
         
-        window.addEventListener('click', function(){
-            if(editRadio == document.activeElement){
-                saveDiv.innerHTML = `<button style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3">Save</button>`;
-            }
-            else{
-                saveDiv.innerHTML = ``;
-            }
-        });
-
-        // Collapse
-
-        let collapseWorldTrue = false;
-        let collapseNodeTrue = false;
-        let world_info = document.querySelector('#world_info');
-        let node_info = document.querySelector('#node_info');
-
-        let world_data_info = {!! json_encode($world_data) !!};
-         console.log(world_data_info);
-         
-        let node_data_info = {!! json_encode($node_data) !!};
-         console.log(node_data_info);
-
-        function collapseWorld(){
-
-            // let blabla = world_data_info['world_description'];
-           
-           if(collapseWorldTrue == false){
-                collapseWorldTrue = true;
-                world_info.style.margin = '1.5rem';
-                world_info.innerHTML = `    <div class="row">
-                                                <div class="col-lg-6">
-                                                    <h2>Description</h2>
-                                                    <p class="">${world_data_info['world_description']}</p>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <h2>Worldinfo</h2>
-                                                    <p>Name: ${world_data_info['world_name']}</p>
-                                                    <p>Type: ${world_data_info['world_type']}</p>
-                                                    <p>Number of nodes: </p>
-                                                </div>
-                                            </div>`;
-           }
-           else{
-               collapseWorldTrue = false;
-               world_info.style.margin = '0px';
-               world_info.innerHTML = ``;
-           }
+        if(collapseWorldTrue == false){
+            collapseWorldTrue = true;
+            world_info.style.margin = '1.5rem';
+            world_info.innerHTML = `    <div class="row">
+                                            <div class="col-lg-6">
+                                                <h2>Description</h2>
+                                                <p class="">${world_data_info['world_description']}</p>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <h2>Worldinfo</h2>
+                                                <p>Name: ${world_data_info['world_name']}</p>
+                                                <p>Type: ${world_data_info['world_type']}</p>
+                                                <p>Number of nodes: ${node_number[0]['COUNT(*)']}</p>
+                                            </div>
+                                        </div>`;
         }
-
-        function collapseNode(){
-            if(collapseNodeTrue == false){
-                collapseNodeTrue = true;
-                node_info.style.margin = '1.5rem';
-                node_info.style.marginRight = '3rem';
-                node_info.style.marginLeft = '3rem';
-                node_info.innerHTML = `<div class="row" >
-                    <div class="col-lg-4">
-                        <p >Name: </p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>Id: </p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>Exits:</p>
-                    </div>
-                </div>`;
-                for(let i = 0; i < 3; i++){
-
-                
-                node_info.innerHTML += `
-
-                <div class="row" style="font-weight: 300;">
-                    <div class="col-lg-4">
-                        <p>${node_data_info[i]['node_name']}</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>${node_data_info[i]['id']}</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <p>${node_data_info[i]['node_exits']}</p>
-                    </div>
-                </div>`;
-           }}
-           else{
-               collapseNodeTrue = false;
-               node_info.style.margin = '0px';
-               node_info.innerHTML = ``;
-           }
+        else{
+            collapseWorldTrue = false;
+            world_info.style.margin = '0px';
+            world_info.innerHTML = ``;
         }
+    }
 
+    function collapseNode(){
+        if(collapseNodeTrue == false){
+            collapseNodeTrue = true;
+            node_info.style.margin = '1.5rem';
+            node_info.style.marginRight = '3rem';
+            node_info.style.marginLeft = '3rem';
+            node_info.innerHTML = `<div class="row" >
+                <div class="col-lg-4">
+                    <p >Name: </p>
+                </div>
+                <div class="col-lg-4">
+                    <p>Id: </p>
+                </div>
+                <div class="col-lg-4">
+                    <p>Exits:</p>
+                </div>
+            </div>`;
+            for(let i = 0; i < 3; i++){
 
+            
+            node_info.innerHTML += `
 
+            <div class="row" style="font-weight: 300;">
+                <div class="col-lg-4">
+                    <p>${node_data_info[i]['node_name']}</p>
+                </div>
+                <div class="col-lg-4">
+                    <p>${node_data_info[i]['id']}</p>
+                </div>
+                <div class="col-lg-4">
+                    <p>${node_data_info[i]['node_exits']}</p>
+                </div>
+            </div>`;
+        }}
+        else{
+            collapseNodeTrue = false;
+            node_info.style.margin = '0px';
+            node_info.innerHTML = ``;
+        }
+    }
     </script>
 
 
