@@ -63,7 +63,7 @@
     {{-- <canvas id="canvas"></canvas><br><br> --}}
     <canvas id="canvas" class="" style="border: 1px solid #333;"></canvas> 
 
-    <img src=".../media/elefant.png" alt="" id="source">
+    {{-- <img src=".../media/elefant.png" alt="" id="source"> --}}
 
     <div style="position: absolute; left: 50px;">
         <button id="edit" class="labelRadio mr-3"><i class="fas fa-check"></i></button><span style="font-weight:200; font-size: large;"> Edit</span> <br><br>
@@ -82,13 +82,13 @@
     let node_info = document.querySelector('#node_info');
 
     let world_data_info = {!! json_encode($world_data) !!};
-    console.log(world_data_info);
+    // console.log(world_data_info);
     
     let node_data_info = {!! json_encode($node_data) !!};
-    console.log(node_data_info);
+    // console.log(node_data_info);
     
     let node_number = {!! json_encode($test) !!};
-    console.log(node_number[0]['COUNT(*)']);
+    // console.log(node_number[0]['COUNT(*)']);
 
     function collapseWorld(){
 

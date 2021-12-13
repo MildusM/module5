@@ -18,7 +18,7 @@ class PagesController extends Controller
         $world_data = World::find($world_id);
 
         $world_number_nodes = DB::select(DB::raw('SELECT COUNT(*) FROM worlds
-        JOIN nodes ON nodes.world_id = worlds.id'));
+        JOIN nodes ON nodes.world_id = worlds.id WHERE nodes.world_id = '.$world_id.'' ));
 
         // {{$world->join('nodes', 'nodes.world_id', '=', 'worlds.id')->where('nodes.world_id', '=', $world->id)->count()}}
 
@@ -29,6 +29,15 @@ class PagesController extends Controller
         return view('pages.edit')->with('world_data', $world_data)->with('node_data', $node_data)->with('test', $world_number_nodes);
 
     }
+    
+    // public function edit(){
+
+        
+
+
+    //     return view('pages.edit');
+
+    // }
 
     public function create(){
         return view('pages.create');

@@ -44,10 +44,68 @@ class worldsController extends Controller
             )
         );
 
+        $world_id = world::select('id')->firstWhere('world_name', $world_name);
+        // $test = world::find($world_id);
+
+        if($rectangle_x == !NULL){
+            $qOfNodes = ($rectangle_x * $rectangle_y);
+            // $test = $qOfNodes;
+            for($i = 0; $i < $qOfNodes; $i++){
+                if($i == 0){
+                    DB::table('nodes')->insert(
+                        array(
+                            'node_name' => $i,
+                            'node_exits' => ($qOfNodes-1 . ', ' . $i+1),
+                            'world_id' => $world_id['id']
+                        )
+                    );
+                }
+                elseif($i == ($qOfNodes-1)){
+                    DB::table('nodes')->insert(
+                        array(
+                            'node_name' => $i,
+                            'node_exits' => (0 . ', ' . $i-1),
+                            'world_id' => $world_id['id']
+                        )
+                    );
+                }
+                else{
+                    DB::table('nodes')->insert(
+                        array(
+                            'node_name' => $i,
+                            'node_exits' => ($i+1 . ', ' . $i-1),
+                            'world_id' => $world_id['id']
+                        )
+                    );
+                }
+
+                
+            }
+        }
+        if($branch_factor == !NULL){
+            $qOfNodes = ($rectangle_x * $rectangle_y);
+            $test = $qOfNodes;
+        }
+        if($circle_rooms == !NULL){
+            $qOfNodes = ($rectangle_x * $rectangle_y);
+            $test = $qOfNodes;
+        }
+
+        // if($rectangle_x == 'hello'){
+        //     $test = 'Rectangle'
+        // }
+        // if($branch_factor !== NULL){
+        //     $test = 'Branch'
+        // }
+        // if($circle_rooms !== NULL){
+        //     $test = 'circular';
+        // }
+
         // $test = $request->input('test'); 
         // $message = $request->input('message');
 
-        return back()->with('create_success', 'World created');
+        return back()->with('create_success', 'World Created');
+        // return view('test')->with('test', $test);
 
     }
 
