@@ -48,7 +48,158 @@ class worldsController extends Controller
         // $test = world::find($world_id);
 
         if($rectangle_x == !NULL){
+            $qOfNodes = ($rectangle_x * $rectangle_y);
+
+            for ($i = 0; $i < $qOfNodes; $i++) {
+                $x = $rectangle_x;
+                $y = $rectangle_y;
+                
+                if($qOfNodes == 1) {
+                    DB::table('nodes')->insert(
+                        array(
+                            'node_name' => $i,
+                            'node_exits' => '',
+                            'world_id' => $world_id['id']
+                        )
+                    );
+                }
+
+                if($x==1 || $y==1) {
+                    for($i = 0; $i < $qOfNodes; $i++){
+                        if($i == 0){
+                            DB::table('nodes')->insert(
+                                array(
+                                    'node_name' => $i,
+                                    'node_exits' => ($i+1),
+                                    'world_id' => $world_id['id']
+                                )
+                            );
+                        }
+                        elseif($i == ($qOfNodes-1)){
+                            DB::table('nodes')->insert(
+                                array(
+                                    'node_name' => $i,
+                                    'node_exits' => ($i-1),
+                                    'world_id' => $world_id['id']
+                                )
+                            );
+                        }
+                        else{
+                            DB::table('nodes')->insert(
+                                array(
+                                    'node_name' => $i,
+                                    'node_exits' => ($i+1 . ', ' . $i-1),
+                                    'world_id' => $world_id['id']
+                                )
+                            );
+                        }
         
+                        
+                    }
+                }
+
+                if($y >= 2 && $x >= 2) {
+                    // vänster hörna upp
+                    if($i == 0){
+                        DB::table('nodes')->insert(
+                            array(
+                                'node_name' => $i,
+                                'node_exits' => ($i+1 . ', ' . $i+$y),
+                                'world_id' => $world_id['id']
+                            )
+                        );
+                        
+                    }
+                    // höger hörna upp
+                    elseif($i == ($y-1)) {
+                        DB::table('nodes')->insert(
+                            array(
+                                'node_name' => $i,
+                                'node_exits' => ($i-1 . ', ' . $i+$y),
+                                'world_id' => $world_id['id']
+                            )
+                        );
+                    }
+                    // vänster hörna ner
+                    elseif($i == ($x*$y)-$y) {
+                        DB::table('nodes')->insert(
+                            array(
+                                'node_name' => $i,
+                                'node_exits' => ($i-$y . ', ' . $i+1),
+                                'world_id' => $world_id['id']
+                            )
+                        );
+                    }
+                    // höger hörna ner
+                    elseif($i==($qOfNodes-1)){
+                        DB::table('nodes')->insert(
+                            array(
+                                'node_name' => $i,
+                                'node_exits' => ($i-1 . ', ' . $i-$y),
+                                'world_id' => $world_id['id']
+                            )
+                        );
+                    }
+                    
+                }
+                if($x >= 3 || $y >= 3) {
+                    // upp
+                    if($i>0 && $i<($y-1)) {
+                        DB::table('nodes')->insert(
+                            array(
+                                'node_name' => $i,
+                                'node_exits' => ($i-1 . ', ' . $i+1 . ', ' . $i+$y),
+                                'world_id' => $world_id['id']
+                            )
+                        );
+                    }
+                    for($j = 1; $j < $x-1; $j++) {
+                        // höger
+                        if($i==($y*($j+1))-1) {
+                            DB::table('nodes')->insert(
+                                array(
+                                    'node_name' => $i,
+                                    'node_exits' => ($i-$y . ', ' . $i-1 . ', ' . $i+$y),
+                                    'world_id' => $world_id['id']
+                                )
+                            );
+                        }
+                        // vänster
+                        elseif($i==($y*$j)) {
+                            DB::table('nodes')->insert(
+                                array(
+                                    'node_name' => $i,
+                                    'node_exits' => ($i-$y . ', ' . $i+1 . ', ' . $i+$y),
+                                    'world_id' => $world_id['id']
+                                )
+                            );
+                        }
+                        
+                        // mitten
+                        if($i>($y*$j) && $i<($y*($j+1))-1){
+                            DB::table('nodes')->insert(
+                                array(
+                                    'node_name' => $i,
+                                    'node_exits' => ($i-$y . ', ' . $i-1 . ', ' . $i+1 . ', ' . $i+$y),
+                                    'world_id' => $world_id['id']
+                                )
+                            );
+                        }
+                    }
+                    // ner
+                    if($y>2){
+                        if($i<($qOfNodes-1) && $i >($y*($x-1))){
+                            DB::table('nodes')->insert(
+                                array(
+                                    'node_name' => $i,
+                                    'node_exits' => ($i-1 . ', ' . $i+1 . ', ' . $i-$y),
+                                    'world_id' => $world_id['id']
+                                )
+                            );
+                        }
+                    }
+                }
+            }
         } 
         if($branch_factor == !NULL){
             // $qOfNodes = ;
