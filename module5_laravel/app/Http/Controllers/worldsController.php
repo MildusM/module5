@@ -67,19 +67,6 @@ class worldsController extends Controller
             );
         }
 
-        // DB::table('worlds')->insert(
-        //     array(
-        //         'world_name'    =>  $world_name,
-        //         'world_type'    =>  $world_type,
-        //         'world_description'   =>  $description,
-        //         'rectangle_x'   =>  $rectangle_x,
-        //         'rectangle_y'   =>  $rectangle_y,
-        //         'branch_factor' =>  $branch_factor,
-        //         'branch_init_range' =>  $branch_init_range,
-        //         'circle_rooms'  =>  $circle_rooms    
-        //     )
-        // );
-
         $world_id = world::select('id')->firstWhere('world_name', $world_name);
         // $test = world::find($world_id);
 
@@ -381,6 +368,21 @@ class worldsController extends Controller
         else {
             $data = world::all();
         }
+        return view('pages.load')->with('data', $data);
+    }
+
+    public function delete($world_id)
+    {
+        // $world = world::select('*')->where('id', $world_id);
+        $world = world::find($world_id);
+
+        $world->delete();
+
+        // $test2 = $request->input('test2');
+        // echo 'hello';
+
+        $data = world::orderBy('latest_world', 'desc')->get();
+
         return view('pages.load')->with('data', $data);
     }
 }
