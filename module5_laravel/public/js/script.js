@@ -37,9 +37,10 @@ function collapseWorld(){
     }
 }
 
-let variable = (node_data_info[1]['node_exits']).split(', ');
+let variable = (node_data_info[0]['node_exits']).split(', ');
 
 console.log(node_data_info[1]['node_exits']);
+console.log(world_data_info['rectangle_y']);
 console.log(variable);
 
 function collapseNode(){
@@ -149,9 +150,9 @@ class WorldGenerator{
         // ___________________________Circular World Start________________________________________________
 
         // Om antalet nodes är mindre än 0, så finns det inget att visa
-        if(this.numOfNodes < 1){
-            return;
-        }
+        // if(this.numOfNodes < 1){
+        //     return;
+        // }
 
         if(world == 'circular'){
 
@@ -194,19 +195,9 @@ class WorldGenerator{
                 // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
                 let temp = new NodeGenerator(i, x, y, 25);
 
-                // Om det är nod 1 (id=0)
-                if(i == 0){
-                    temp.exits = [i+1];
-                    temp.exits[temp.exits.length] = (this.numOfNodes - 1);
-                }
-                // Om det är den sista noden 
-                if(i == (this.numOfNodes -1)){
-                    temp.exits = [i-1];
-                    temp.exits[temp.exits.length] = (0);
-                }
-                // Om det är noderna mellan 0 och sista
-                if(i > 0 && i < (this.numOfNodes - 1)){
-                    temp.exits = [(i-1), (i+1)];
+                let variable = (node_data_info[i]['node_exits']).split(', ');
+                for(let j = 0; j < variable.length; j++){
+                    temp.exits[temp.exits.length] = variable[j];
                 }
                 
                 // Lagrar noden i världen.
@@ -245,9 +236,9 @@ class WorldGenerator{
 
                         ctx.beginPath();
                         ctx.moveTo(this.rooms[i].xPos, this.rooms[i].yPos);
-                        console.log('----------------');
-                        console.log(this.rooms[i].xPos, this.rooms[i].yPos);
-                        console.log(this.rooms[this.rooms[i].exits[j]].xPos, this.rooms[this.rooms[i].exits[j]].yPos);
+                        // console.log('----------------');
+                        // console.log(this.rooms[i].xPos, this.rooms[i].yPos);
+                        // console.log(this.rooms[this.rooms[i].exits[j]].xPos, this.rooms[this.rooms[i].exits[j]].yPos);
                         ctx.lineTo(this.rooms[this.rooms[i].exits[j]].xPos, this.rooms[this.rooms[i].exits[j]].yPos);
                         ctx.stroke();
                         ctx.closePath();
@@ -259,7 +250,122 @@ class WorldGenerator{
 
         }
         
-        // ___________________________Circular World End________________________________________________
+        // _____________________________Circular World End______________________________________________
+        // ___________________________Rectangular World Start___________________________________________
+
+        if(world == 'rectangular'){
+            // Mittpunkt av canvas (kvadratisk)
+            let yCenter;
+            let xCenter;
+            let mRadius;
+            let yLength = world_data_info['rectangle_y'];
+
+            console.log('yLength: ' + yLength);
+
+            // Radien får inte vara större än canvas.width
+            if(canvas.width < canvas.height){
+                yCenter = Math.round(canvas.height/2);
+                xCenter = Math.round(canvas.width/2);
+                mRadius = Math.round((canvas.width/2)*0.9);
+            }
+            // Radien får inte vara större än canvas.height
+            else if(canvas.width == canvas.height){
+                yCenter = (Math.round(canvas.height * 0.9))/2;
+                xCenter = (Math.round(canvas.width * 0.9))/2;
+                mRadius = Math.round((canvas.width/2)*0.9);
+            }
+            // -...canvas.height och canvas.width är lika stora, denna if satsen är egentligen onödig
+            else{
+                xCenter = Math.round(canvas.width/2);
+                yCenter = Math.round(canvas.height/2);
+                mRadius = Math.round((canvas.height/2)*0.9);
+            }
+
+            // Startkoordinater för rektangel
+            let y = 50;
+            let x = 50;
+
+            let row = 0;
+            let rad = 0;
+            let start = 0;
+
+            ctx.stroke();
+            
+            for(let i = 0; i < this.numOfNodes; i++){
+
+                
+                if(i == row){
+                    console.log('Ny rad');
+                    row = row + yLength;
+                    rad++;
+                    console.log('Row: ' + row);
+                    console.log('Rad: ' + rad);
+                    start = 0;
+                }
+                y = (rad * 70);
+                x = (xCenter) + (100 * start); 
+                start++;
+
+                // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
+                let temp = new NodeGenerator(i, x, y, 25);
+
+                let variable = (node_data_info[i]['node_exits']).split(', ');
+                for(let j = 0; j < variable.length; j++){
+                    temp.exits[temp.exits.length] = variable[j];
+                }
+                
+                // Lagrar noden i världen.
+                this.rooms[i] = temp;
+
+                
+
+            }
+
+            let lagra = [];
+            let dublett = false;
+            // --Loop through all nodes, funktion: skapa synliga paths mellan de olika noderna
+            for(let i = 0; i < this.numOfNodes; i++){
+
+                // Lagrar i (id för noden)
+                lagra[lagra.length] = (this.rooms[i].id);
+
+                for(let j = 0; j < this.rooms[i].exits.length; j++){
+                    // Loopar genom alla exits för den nuvarande noden
+
+                    for(let k = 0; k < lagra.length; k++){
+                        // Loopar genom hela lagra
+
+                        if(lagra[k] == this.rooms[i].exits[j]){
+                            // Om lagra innehåller en siffra (id av nod) som körs i loopen så kommer en dubbel path köras (vilket denna if-satsen förhindrar)
+
+                            k = lagra.length;
+                            dublett = true;
+                        }
+                    }
+                    if(dublett == true){
+                        // Om dublett = true, så ska det inte skapas någon linje mellan två noder.
+
+                        dublett = false;
+                    }
+                    else{
+                        // Om dublett = false, så ska en linje ritas ut
+
+                        ctx.beginPath();
+                        ctx.moveTo(this.rooms[i].xPos, this.rooms[i].yPos);
+                        // console.log('----------------');
+                        // console.log(this.rooms[i].xPos, this.rooms[i].yPos);
+                        // console.log(this.rooms[this.rooms[i].exits[j]].xPos, this.rooms[this.rooms[i].exits[j]].yPos);
+                        ctx.lineTo(this.rooms[this.rooms[i].exits[j]].xPos, this.rooms[this.rooms[i].exits[j]].yPos);
+                        ctx.stroke();
+                        ctx.closePath();
+                        dublett = false;
+                    }
+
+                }
+            }
+        }
+
+        // ___________________________Rectangular World End___________________________________________
 
     }
     printWorld(){
