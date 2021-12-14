@@ -282,6 +282,10 @@ body{
     transform: scale(1.1);
 }
 
+.delete-btn {
+    display: inline;
+}
+
 /* Canvas go-back btn */
 .go-back-c{
     color: #fff; 
