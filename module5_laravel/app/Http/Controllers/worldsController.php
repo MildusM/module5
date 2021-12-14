@@ -15,9 +15,11 @@ class worldsController extends Controller
         $rectangle_x = $request->input('rectangle_x'); 
         $rectangle_y = $request->input('rectangle_y'); 
         $branch_factor = $request->input('branch_factor'); 
-        $branch_init_range = $request->input('branch_init-range'); 
+        $branch_init_range = $request->input('branch_init_range'); 
         $circle_rooms = $request->input('circle_rooms'); 
         $world_type = $request->input('world_type');
+
+        // $branch_factor.replace(',','.');
 
         if($rectangle_x == ''){
             $rectangle_x = NULL;
@@ -51,8 +53,8 @@ class worldsController extends Controller
             $qOfNodes = ($rectangle_x * $rectangle_y);
 
             for ($i = 0; $i < $qOfNodes; $i++) {
-                $x = $rectangle_x;
-                $y = $rectangle_y;
+                $y = $rectangle_x;
+                $x = $rectangle_y;
                 
                 if($qOfNodes == 1) {
                     DB::table('nodes')->insert(
@@ -202,8 +204,87 @@ class worldsController extends Controller
             }
         } 
         if($branch_factor == !NULL){
-            // $qOfNodes = ;
-            $test = $qOfNodes;
+            $factor = $branch_factor;
+            $mBranch = $branch_init_range;
+
+            if($mBranch < 1)
+                return;
+            
+            // Main branch
+            for($i=0; $i <$mBranch; $i++) {
+                // First node
+                if($i == 0){
+                    DB::table('nodes')->insert(
+                        array(
+                            'node_name' => $i,
+                            'node_exits' => ($i+1),
+                            'world_id' => $world_id['id']
+                        )
+                    );
+                }
+                // Last node
+                elseif($i == ($mBranch-1)){
+                    DB::table('nodes')->insert(
+                        array(
+                            'node_name' => $i,
+                            'node_exits' => ($i-1),
+                            'world_id' => $world_id['id']
+                        )
+                    );
+                }
+                // Middle nodes
+                else{
+                    DB::table('nodes')->insert(
+                        array(
+                            'node_name' => $i,
+                            'node_exits' => ($i-1 . ', ' . $i+1),
+                            'world_id' => $world_id['id']
+                        )
+                    );
+                } 
+            }
+
+            // Child branches
+            $cBranch = round($mBranch*$factor);
+            $start = $mBranch;
+
+            while($cBranch > 5) {
+                for($i = $start; $i < ($start+$cBranch); $i++) {
+                    // First child node
+                    if($i == $start){
+                        DB::table('nodes')->insert(
+                            array(
+                                'node_name' => $i,
+                                'node_exits' => ($i+1),
+                                'world_id' => $world_id['id']
+                            )
+                        );
+                    }
+                    // Last child node
+                    elseif($i == ($start+$cBranch-1)){
+                        DB::table('nodes')->insert(
+                            array(
+                                'node_name' => $i,
+                                'node_exits' => ($i-1),
+                                'world_id' => $world_id['id']
+                            )
+                        );
+                    }
+                    // Middle nodes
+                    else{
+                        DB::table('nodes')->insert(
+                            array(
+                                'node_name' => $i,
+                                'node_exits' => ($i-1 . ', ' . $i+1),
+                                'world_id' => $world_id['id']
+                            )
+                        );
+                    }
+                }
+                $start += $cBranch;
+                $cBranch = round($cBranch*$factor);
+            }
+
         }
         if($circle_rooms == !NULL){
             $qOfNodes = $circle_rooms;
