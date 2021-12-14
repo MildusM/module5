@@ -407,8 +407,10 @@ window.addEventListener('resize', function(){
 // Edit
 
 let editRadio = document.querySelector('#edit');
+let pathFindRadio = document.querySelector('#pathfind');
 let saveDiv = document.querySelector('#save');
 let edit = false;
+let pathFind = false;
 
 window.addEventListener('click', function(){
     if(editRadio == document.activeElement){
@@ -558,3 +560,19 @@ window.addEventListener('click', function(){
 
 });
 
+
+window.addEventListener('click', function(){
+    if(pathFindRadio == document.activeElement){
+        pathFind = true;
+    }
+    else{
+        pathFind = false;
+    }
+
+    if(pathFind == true){
+        // Look for a path
+    }
+
+
+
+});
