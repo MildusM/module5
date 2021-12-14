@@ -90,6 +90,7 @@ let node_number = {!! json_encode($test) !!};
 // console.log(node_number[0]['COUNT(*)']);
     
     </script>
+    <script src="{{asset('js/editScript.js')}}"></script>
 
 
 @endsection
