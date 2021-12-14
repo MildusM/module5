@@ -33,18 +33,52 @@ class worldsController extends Controller
             $circle_rooms = NULL;
         }
 
-        DB::table('worlds')->insert(
-            array(
-                'world_name'    =>  $world_name,
-                'world_type'    =>  $world_type,
-                'world_description'   =>  $description,
-                'rectangle_x'   =>  $rectangle_x,
-                'rectangle_y'   =>  $rectangle_y,
-                'branch_factor' =>  $branch_factor,
-                'branch_init_range' =>  $branch_init_range,
-                'circle_rooms'  =>  $circle_rooms    
-            )
-        );
+        $findName = world::select('world_name')->firstWhere('world_name', $world_name);
+        if ($findName === null) {
+            DB::table('worlds')->insert(
+                array(
+                    'world_name'    =>  $world_name,
+                    'world_type'    =>  $world_type,
+                    'world_description'   =>  $description,
+                    'rectangle_x'   =>  $rectangle_x,
+                    'rectangle_y'   =>  $rectangle_y,
+                    'branch_factor' =>  $branch_factor,
+                    'branch_init_range' =>  $branch_init_range,
+                    'circle_rooms'  =>  $circle_rooms    
+                )
+            );
+        }
+        else {
+            $delRow = world::select('*')->where('world_name', $world_name);
+            $delRow->delete();
+
+            // $newName = $world_name.'_'.time();
+            DB::table('worlds')->insert(
+                array(
+                    'world_name'    =>  $world_name,
+                    'world_type'    =>  $world_type,
+                    'world_description'   =>  $description,
+                    'rectangle_x'   =>  $rectangle_x,
+                    'rectangle_y'   =>  $rectangle_y,
+                    'branch_factor' =>  $branch_factor,
+                    'branch_init_range' =>  $branch_init_range,
+                    'circle_rooms'  =>  $circle_rooms    
+                )
+            );
+        }
+
+        // DB::table('worlds')->insert(
+        //     array(
+        //         'world_name'    =>  $world_name,
+        //         'world_type'    =>  $world_type,
+        //         'world_description'   =>  $description,
+        //         'rectangle_x'   =>  $rectangle_x,
+        //         'rectangle_y'   =>  $rectangle_y,
+        //         'branch_factor' =>  $branch_factor,
+        //         'branch_init_range' =>  $branch_init_range,
+        //         'circle_rooms'  =>  $circle_rooms    
+        //     )
+        // );
 
         $world_id = world::select('id')->firstWhere('world_name', $world_name);
         // $test = world::find($world_id);
