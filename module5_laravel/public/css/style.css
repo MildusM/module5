@@ -290,8 +290,8 @@ body{
     width: 12%;
     padding: 0.5rem 1.5rem;
     position: absolute;
-    right:    1.5%;
-    bottom:   2%;
+    right:    40px;
+    bottom:   -85px;
 }
 
 .go-back-c:hover{

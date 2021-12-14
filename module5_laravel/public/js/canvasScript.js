@@ -1,4 +1,17 @@
 // Edit page
+
+let editRadio = document.querySelector('#edit');
+let saveDiv = document.querySelector('#save');
+
+window.addEventListener('click', function(){
+    if(editRadio == document.activeElement){
+        saveDiv.innerHTML = `<button style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3">Save</button>`;
+    }
+    else{
+        saveDiv.innerHTML = ``;
+    }
+});
+
 function collapseWorld(){
     
     if(collapseWorldTrue == false){
@@ -402,159 +415,14 @@ window.addEventListener('resize', function(){
     ctx.canvas.height = (window.innerHeight - 20);
     test.printWorld();
 });
+// Vit linje
+// ctx.beginPath();
+// ctx.moveTo(test.rooms[2].xPos, test.rooms[2].yPos);
+// ctx.lineTo(test.rooms[6].xPos, test.rooms[6].yPos);
+// ctx.strokeStyle = 'white';
+// ctx.stroke();
+// ctx.closePath();
+// test.printWorld();
 
 
-// Edit
-
-let editRadio = document.querySelector('#edit');
-let saveDiv = document.querySelector('#save');
-let edit = false;
-
-window.addEventListener('click', function(){
-    if(editRadio == document.activeElement){
-        saveDiv.innerHTML = `<button style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3">Save</button>`;
-        edit = true;
-    }
-    else{
-        saveDiv.innerHTML = ``;
-        edit = false;
-    }
-
-    // Edit
-
-    if(edit == true){
-    
-        ctx.canvas.addEventListener('click', function(event){
-    
-            clickOnNode(event.layerX, event.layerY);
-        });
-        
-        let clickedNodes = [];
-        let qClicked = 0;
-        
-        function clickOnNode(mx, my){
-            
-            for(let i = 0; i < test.numOfNodes; i++){
-                let katet1 = (test.rooms[i].xPos - mx);
-                let katet2 = (test.rooms[i].yPos - my);
-                let hypotenusan = Math.sqrt((katet1**2) + (katet2**2));
-                // console.log('katet1: ' + katet1 + ' Katet2: ' + katet2 + ' hypotenusan: ' + hypotenusan);
-                if(hypotenusan > test.rooms[i].radius){
-                    // Not inside a circle
-                }
-                else{
-                    // Inside a circle
-                    console.log('Clicked: ' + clickedNodes + ' qClicked: ' + qClicked);
-                    // alert('CLICKED CIRCLE ' + test.rooms[i].id);
-                    test.rooms[i].clicked('red');
-                    // console.log(test.rooms[i].color);
-                    // alert(test.rooms[i].color);
-                    test.printWorld();
-        
-        
-                    clickedNodes[clickedNodes.length] = (test.rooms[i].id);
-                    qClicked++;
-                    let double = false;
-                    if(qClicked == 2){
-        // -------------------------MÅSTE FIXAS DETTA FUNGERAR BARA PÅ ENA HÅLLET!!___________________________------
-                    
-                        for(let i = 0; i < test.rooms[clickedNodes[0]].exits.length; i++){
-                            console.log('Clicked nodes: ' + clickedNodes);
-                            if(test.rooms[clickedNodes[0]].exits[i] == clickedNodes[1]){
-                                // Delete path
-                                double = true;
-                                console.log('Array: ' + test.rooms[clickedNodes[0]].exits);
-                                let array = [];
-                                array.concat(test.rooms[clickedNodes[0]].exits);
-                                console.log('ArrayReal ' + array);
-                                console.log(array);
-                                let index = array.indexOf(2);
-                                console.log('Index: ' + index);
-                                test.rooms[clickedNodes[0]].exits[i] = '';
-                                
-                            }
-                            else if(test.rooms[clickedNodes[1]].exits[i] == clickedNodes[0]){
-                                test.rooms[clickedNodes[1]].exits[i] = '';
-                            }
-                        }
-                        // alert('true');
-                        if(double == false){
-                            qClicked = 0;
-                        for(let j = 0; j < clickedNodes.length; j++){
-                            test.rooms[clickedNodes[j]].clicked('orange');
-                            if(j == 0){
-                                test.rooms[clickedNodes[j]].exits[test.rooms[clickedNodes[j]].exits.length] = (clickedNodes[1]);
-                            }
-                            else{
-                                test.rooms[clickedNodes[j]].exits[test.rooms[clickedNodes[j]].exits.length] = (clickedNodes[0]);
-                            }
-                            
-                            // alert(test.rooms[clickedNodes[j]]);
-                            // test.printWorld();
-                        }
-                        // test.printWorld();
-                        console.log(clickedNodes[0]);
-                        ctx.beginPath();
-                        ctx.moveTo(test.rooms[clickedNodes[0]].xPos, test.rooms[clickedNodes[0]].yPos);
-                        ctx.lineTo(test.rooms[clickedNodes[1]].xPos, test.rooms[clickedNodes[1]].yPos);
-                        ctx.strokeStyle = 'black';
-                        ctx.stroke();
-                        ctx.closePath();
-                        qClicked = 0;
-                        clickedNodes = [];
-                        test.printWorld();
-        
-                        }
-                        else{
-                            qClicked = 0;
-                            for(let j = 0; j < clickedNodes.length; j++){
-                                test.rooms[clickedNodes[j]].clicked('orange');
-                                // if(j == 0){
-                                //     test.rooms[clickedNodes[j]].exits[test.rooms[clickedNodes[j]].exits.length] = (clickedNodes[1]);
-                                // }
-                                // else{
-                                //     test.rooms[clickedNodes[j]].exits[test.rooms[clickedNodes[j]].exits.length] = (clickedNodes[0]);
-                                // }
-                                
-                                // alert(test.rooms[clickedNodes[j]]);
-                                // test.printWorld();
-                            }
-                            ctx.beginPath();
-                            ctx.moveTo(test.rooms[clickedNodes[0]].xPos, test.rooms[clickedNodes[0]].yPos);
-                            ctx.lineTo(test.rooms[clickedNodes[1]].xPos, test.rooms[clickedNodes[1]].yPos);
-                            ctx.strokeStyle = 'white';
-                            ctx.lineWidth = 3;
-                            ctx.stroke();
-                            ctx.closePath();
-                            qClicked = 0;
-                            clickedNodes = [];
-                            ctx.lineWidth = 1;
-                            test.printWorld();
-                            
-                        }
-            
-                        double = false;
-                        
-                    }
-        
-                    
-                    
-                }
-        
-            }
-        } 
-        
-        
-        // Vit linje
-        // ctx.beginPath();
-        // ctx.moveTo(test.rooms[2].xPos, test.rooms[2].yPos);
-        // ctx.lineTo(test.rooms[6].xPos, test.rooms[6].yPos);
-        // ctx.strokeStyle = 'white';
-        // ctx.stroke();
-        // ctx.closePath();
-        // test.printWorld();
-    
-    }
-
-});
 
