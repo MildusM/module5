@@ -10,7 +10,7 @@
                 <h1 style="font-size: 100px;">Genealogy</h1>
             </div>
             <div class="subheading">
-                <p>Create or load world lorem ipsum dolor imet sit lorem ipsum World lorem ipsum dolor imet sit lorem ipsum</p>
+                <p>Create or load your world. Every world contains nodes structured as a circle, rectangle, or branch.</p>
             </div>
             <div class="buttons row">
                 <div class="col-lg-6">
