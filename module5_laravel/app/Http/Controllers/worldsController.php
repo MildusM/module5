@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\world;
+use App\Models\node;
 use Illuminate\Support\Facades\DB;
 
 class worldsController extends Controller
@@ -373,13 +374,13 @@ class worldsController extends Controller
 
     public function delete($world_id)
     {
-        // $world = world::select('*')->where('id', $world_id);
         $world = world::find($world_id);
 
         $world->delete();
 
-        // $test2 = $request->input('test2');
-        // echo 'hello';
+        $nodes = node::select('*')->where('world_id', $world_id);
+
+        $nodes->delete();
 
         $data = world::orderBy('latest_world', 'desc')->get();
 
