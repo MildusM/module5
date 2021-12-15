@@ -385,4 +385,13 @@ class worldsController extends Controller
 
         return view('pages.load')->with('data', $data);
     }
+
+    public function save(){
+
+
+
+
+
+        return back()->with('save_success', 'Successfully saved');
+    }
 }

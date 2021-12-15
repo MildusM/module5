@@ -31,3 +31,10 @@ Route::get('/createWorld', [worldsController::class, 'create']);
 // Route::resource('worlds', 'worldsController');
 
 Route::get('/delete/{world_id}', [worldsController::class, 'delete']);
+
+Route::get('/save', [worldsController::class, 'save']);
+
+Route::get('ajax', function(){
+    return view('test');
+});
+Route::post('/getmsg', [AjaxController::class, 'index']);

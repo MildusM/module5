@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genealogy</title>
 
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
@@ -18,6 +20,11 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta2/css/all.css">
 </head>
 <body class="min-h-screen flex flex-col">
+    <div id="msg">This message</div>
+
+    <?php
+         echo Form::button('Replace Message',['onClick'=>'getMessage()']);
+      ?>
 
     {{-- @include('./inc/header')
 

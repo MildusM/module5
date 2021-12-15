@@ -13,7 +13,15 @@
 
     </div>
 
+    @if (\Session::has('save_success'))
+        <div style="width: 200px;" class="">
+            <span><p class="m-3"><i class="fal fa-check mr-4"></i> {!! \Session::get('save_success') !!}</p></span>
+        </div>
+    @endif
+
     <div class="my-5 section">
+
+
 
         {{-- Collapse --}}
         <div class="collapse-div pt-2">
@@ -46,24 +54,7 @@
 
     </div>
 
-    {{-- Canvas --}}
-
-        <!-- <canvas id="canvas" style="border: 1px solid #333;" height="400px" width="400px"></canvas>
-
-    <script>
-        let canvas = document.querySelector('#canvas');
-        let ctx = canvas.getContext('2d');
-
-        ctx.fillStyle = 'rgb(0,0,200)';
-        ctx.fillRect(2, 2, 100, 100);
-
-        ctx.fillStyle = 'rgb(0,0,0)';
-        ctx.fillText('hahahha', 200, 200);
-    </script> -->
-    {{-- <canvas id="canvas"></canvas><br><br> --}}
     <canvas id="canvas" class="" style="border: 1px solid #333;"></canvas>  
-
-    {{-- <img src=".../media/elefant.png" alt="" id="source"> --}}
 
     <div class="radio-toolbar" style="position: absolute; left: 50px;">
         <input type="radio"  name="radioBtn" id="edit" class="labelRadio mr-3">
@@ -74,24 +65,29 @@
         <button class="labelRadio mr-3"><i class="fas fa-check"></i></button><span style="font-weight:200; font-size: large;"> Find path</span><br><br> --}}
     </div>
     <div id="save">
-        {{-- <button style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3 btn-save">Save</button> --}}
+        {{Form::open(array('action' => 'App\Http\Controllers\worldsController@save', 'method' => 'get'))}}
+            <button disabled onclick="saveExits()" style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3 btn-save">Save</button>
+        {{Form::close()}}
     </div>
+    <input type="hidden" name="save_data" id="save_id" value="">
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script> --}}
+
 
     <script>
-         // Collapse
-         let collapseWorldTrue = false;
-let collapseNodeTrue = false;
-let world_info = document.querySelector('#world_info');
-let node_info = document.querySelector('#node_info');
+        // Collapse
+        let collapseWorldTrue = false;
+        let collapseNodeTrue = false;
+        let world_info = document.querySelector('#world_info');
+        let node_info = document.querySelector('#node_info');
 
-let world_data_info = {!! json_encode($world_data) !!};
-// console.log(world_data_info);
+        let world_data_info = {!! json_encode($world_data) !!};
+        // console.log(world_data_info);
 
-let node_data_info = {!! json_encode($node_data) !!};
-// console.log(node_data_info);
+        let node_data_info = {!! json_encode($node_data) !!};
+        // console.log(node_data_info);
 
-let node_number = {!! json_encode($test) !!};
-// console.log(node_number[0]['COUNT(*)']);
+        let node_number = {!! json_encode($test) !!};
+        // console.log(node_number[0]['COUNT(*)']);
     
     </script>
     <script src="{{asset('js/editScript.js')}}"></script>
