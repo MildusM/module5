@@ -550,7 +550,7 @@ function saveExits(){
         
     
 }
-
+let way = [];
 window.addEventListener('click', function(){
     if(pathFindRadio == document.activeElement){
         pathFind = true;
@@ -570,7 +570,7 @@ window.addEventListener('click', function(){
 
             let array1 = [];
             let lagra = [];
-            let way = [];
+            
             let hold = true;
             let kast = [];
             let bla = false;
@@ -647,7 +647,17 @@ window.addEventListener('click', function(){
                             
                             
                         }
-
+                        let pathFindSum = document.querySelector('#pathFindSum');
+                            if(way.length >= 1) {
+                                pathFindSum.innerHTML=`<button class="btn btn-dark" onclick="pathFindColor(0)" style="background:linear-gradient(to right, #B983FF, #94B3FD); border-radius:50%; border:none; padding: 15px 5px; margin-left: 2%;">Path 1</button>`;
+                                if(way.length >= 2){
+                                    pathFindSum.innerHTML+=`<button class="btn btn-dark" onclick="pathFindColor(1)" style="background:linear-gradient(to right, #B983FF, #94B3FD); border-radius:50%; border:none; padding: 15px 5px; margin: 1% 2%">Path 2</button>`;
+                                    if(way.length >= 3){
+                                        pathFindSum.innerHTML+=`<button class="btn btn-dark" onclick="pathFindColor(2)" style="background:linear-gradient(to right, #B983FF, #94B3FD); border-radius:50%; border:none; padding: 15px 5px;">Path 3</button>`;
+                                    }
+                                }
+                            }
+                        
                         console.log(way[0]);
                         console.log(way[1]);
                         console.log(way[2]);
@@ -663,3 +673,37 @@ window.addEventListener('click', function(){
 
 
 });
+
+let path = 0;
+function pathFindColor(x) {                     
+    for(let i=0; i<(way[path].length-1); i++){
+        ctx.beginPath();
+        ctx.moveTo(test.rooms[way[path][i]].xPos, test.rooms[way[path][i]].yPos);
+        ctx.lineTo(test.rooms[way[path][i+1]].xPos, test.rooms[way[path][i+1]].yPos);
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.closePath();
+        ctx.beginPath();
+        ctx.moveTo(test.rooms[way[path][i]].xPos, test.rooms[way[path][i]].yPos);
+        ctx.lineTo(test.rooms[way[path][i+1]].xPos, test.rooms[way[path][i+1]].yPos);
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        ctx.closePath();
+        ctx.lineWidth = 1;
+        test.printWorld();
+    }
+    for(let i=0; i<(way[x].length-1); i++){
+        ctx.beginPath();
+        ctx.moveTo(test.rooms[way[x][i]].xPos, test.rooms[way[x][i]].yPos);
+        ctx.lineTo(test.rooms[way[x][i+1]].xPos, test.rooms[way[x][i+1]].yPos);
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.closePath();
+        ctx.lineWidth = 1;
+        test.printWorld();
+    }
+    path=x;
+}
