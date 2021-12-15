@@ -571,6 +571,103 @@ window.addEventListener('click', function(){
 
     if(pathFind == true){
         // Look for a path
+        // alert(test.rooms[7].exits[2]);
+
+        // let variable = (node_data_info[i]['node_exits']).split(', ');
+        // for(let j = 0; j < variable.length; j++){
+        //     temp.exits[temp.exits.length] = variable[j];
+        // }
+
+            let array1 = [];
+            let lagra = [];
+            let way = [];
+            let hold = true;
+            let kast = [];
+            let bla = false;
+            let double = 0;
+            let clicked2 = [];
+
+            ctx.canvas.addEventListener('click', function(event){
+    
+                nodeClicked(event.layerX, event.layerY);
+            });
+
+            function nodeClicked(mx,my){
+
+            for(let i = 0; i < test.numOfNodes; i++){
+                let katet1 = (test.rooms[i].xPos - mx);
+                let katet2 = (test.rooms[i].yPos - my);
+                let hypotenusan = Math.sqrt((katet1**2) + (katet2**2));
+                // console.log('katet1: ' + katet1 + ' Katet2: ' + katet2 + ' hypotenusan: ' + hypotenusan);
+                if(hypotenusan > test.rooms[i].radius){
+                    // Not inside a circle
+                }
+                else{
+                    double++;
+                    clicked2[clicked2.length] = i;
+                    if(double == 2) {
+                        double=0;
+                        start = clicked2[0];
+                        goal = clicked2[1];
+
+                        array1.push([start]);
+                        console.log('\nstart\n\n');
+                        while(hold == true){
+                            let temp = array1[0];
+                            // För varje exit
+                            for(let a = 0; a < (test.rooms[temp[temp.length - 1]].exits.length); a++){
+
+                                // If duplicates
+                                for(let f = 0; f < temp.length; f++){
+                                    // console.log(test.rooms[temp[temp.length - 1]].exits[a] + ' this');
+                                    // console.log(temp[f] + ' temp');
+                                    if(temp[f] == (test.rooms[temp[temp.length - 1]].exits[a])){
+                                        // console.log('Duplicates');
+                                        kast = (test.rooms[temp[temp.length - 1]].exits[a]);
+                                        bla = true;
+                                    }
+                                }
+
+                                if(bla == false){
+                                    lagra[lagra.length] = ([...array1[0], test.rooms[temp[temp.length - 1]].exits[a]]);
+                                }
+                                bla = false;
+                                // console.log(lagra);
+
+                                // If goal
+                                if(test.rooms[temp[temp.length - 1]].exits[a] == goal){
+                                    way[way.length] = ([...array1[0], test.rooms[temp[temp.length - 1]].exits[a]]);
+                                    lagra.pop();
+                                }
+                            }
+
+                            for(let c = 0; c < (lagra.length); c++){
+                                array1.push([...lagra[c]]);
+                            }
+
+                            for(let b = 0; b < (array1.length); b++){
+                                array1[b] = array1[(b+1)];
+                            }
+                            array1.pop();
+                            lagra = [];
+
+                            if(array1.length == 0){
+                                hold = false;
+                            }
+                            
+                            
+                        }
+
+                        console.log(way[0]);
+                        console.log(way[1]);
+                        console.log(way[2]);
+                        clicked2 = [];
+                    }
+                }
+            }
+        }
+            
+
     }
 
 
