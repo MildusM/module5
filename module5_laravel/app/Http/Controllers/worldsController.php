@@ -112,7 +112,7 @@ class worldsController extends Controller
                             DB::table('nodes')->insert(
                                 array(
                                     'node_name' => $i,
-                                    'node_exits' => ($i+1 . ', ' . $i-1),
+                                    'node_exits' => ($i+1 . ',' . $i-1),
                                     'world_id' => $world_id['id']
                                 )
                             );
@@ -128,7 +128,7 @@ class worldsController extends Controller
                         DB::table('nodes')->insert(
                             array(
                                 'node_name' => $i,
-                                'node_exits' => ($i+1 . ', ' . $i+$y),
+                                'node_exits' => ($i+1 . ',' . $i+$y),
                                 'world_id' => $world_id['id']
                             )
                         );
@@ -139,7 +139,7 @@ class worldsController extends Controller
                         DB::table('nodes')->insert(
                             array(
                                 'node_name' => $i,
-                                'node_exits' => ($i-1 . ', ' . $i+$y),
+                                'node_exits' => ($i-1 . ',' . $i+$y),
                                 'world_id' => $world_id['id']
                             )
                         );
@@ -149,7 +149,7 @@ class worldsController extends Controller
                         DB::table('nodes')->insert(
                             array(
                                 'node_name' => $i,
-                                'node_exits' => ($i-$y . ', ' . $i+1),
+                                'node_exits' => ($i-$y . ',' . $i+1),
                                 'world_id' => $world_id['id']
                             )
                         );
@@ -159,7 +159,7 @@ class worldsController extends Controller
                         DB::table('nodes')->insert(
                             array(
                                 'node_name' => $i,
-                                'node_exits' => ($i-1 . ', ' . $i-$y),
+                                'node_exits' => ($i-1 . ',' . $i-$y),
                                 'world_id' => $world_id['id']
                             )
                         );
@@ -172,7 +172,7 @@ class worldsController extends Controller
                         DB::table('nodes')->insert(
                             array(
                                 'node_name' => $i,
-                                'node_exits' => ($i-1 . ', ' . $i+1 . ', ' . $i+$y),
+                                'node_exits' => ($i-1 . ',' . $i+1 . ',' . $i+$y),
                                 'world_id' => $world_id['id']
                             )
                         );
@@ -183,7 +183,7 @@ class worldsController extends Controller
                             DB::table('nodes')->insert(
                                 array(
                                     'node_name' => $i,
-                                    'node_exits' => ($i-$y . ', ' . $i-1 . ', ' . $i+$y),
+                                    'node_exits' => ($i-$y . ',' . $i-1 . ',' . $i+$y),
                                     'world_id' => $world_id['id']
                                 )
                             );
@@ -193,7 +193,7 @@ class worldsController extends Controller
                             DB::table('nodes')->insert(
                                 array(
                                     'node_name' => $i,
-                                    'node_exits' => ($i-$y . ', ' . $i+1 . ', ' . $i+$y),
+                                    'node_exits' => ($i-$y . ',' . $i+1 . ',' . $i+$y),
                                     'world_id' => $world_id['id']
                                 )
                             );
@@ -204,7 +204,7 @@ class worldsController extends Controller
                             DB::table('nodes')->insert(
                                 array(
                                     'node_name' => $i,
-                                    'node_exits' => ($i-$y . ', ' . $i-1 . ', ' . $i+1 . ', ' . $i+$y),
+                                    'node_exits' => ($i-$y . ',' . $i-1 . ',' . $i+1 . ',' . $i+$y),
                                     'world_id' => $world_id['id']
                                 )
                             );
@@ -216,7 +216,7 @@ class worldsController extends Controller
                             DB::table('nodes')->insert(
                                 array(
                                     'node_name' => $i,
-                                    'node_exits' => ($i-1 . ', ' . $i+1 . ', ' . $i-$y),
+                                    'node_exits' => ($i-1 . ',' . $i+1 . ',' . $i-$y),
                                     'world_id' => $world_id['id']
                                 )
                             );
@@ -259,7 +259,7 @@ class worldsController extends Controller
                     DB::table('nodes')->insert(
                         array(
                             'node_name' => $i,
-                            'node_exits' => ($i-1 . ', ' . $i+1),
+                            'node_exits' => ($i-1 . ',' . $i+1),
                             'world_id' => $world_id['id']
                         )
                     );
@@ -297,7 +297,7 @@ class worldsController extends Controller
                         DB::table('nodes')->insert(
                             array(
                                 'node_name' => $i,
-                                'node_exits' => ($i-1 . ', ' . $i+1),
+                                'node_exits' => ($i-1 . ',' . $i+1),
                                 'world_id' => $world_id['id']
                             )
                         );
@@ -316,7 +316,7 @@ class worldsController extends Controller
                     DB::table('nodes')->insert(
                         array(
                             'node_name' => $i,
-                            'node_exits' => ($qOfNodes-1 . ', ' . $i+1),
+                            'node_exits' => ($qOfNodes-1 . ',' . $i+1),
                             'world_id' => $world_id['id']
                         )
                     );
@@ -325,7 +325,7 @@ class worldsController extends Controller
                     DB::table('nodes')->insert(
                         array(
                             'node_name' => $i,
-                            'node_exits' => (0 . ', ' . $i-1),
+                            'node_exits' => (0 . ',' . $i-1),
                             'world_id' => $world_id['id']
                         )
                     );
@@ -334,7 +334,7 @@ class worldsController extends Controller
                     DB::table('nodes')->insert(
                         array(
                             'node_name' => $i,
-                            'node_exits' => ($i+1 . ', ' . $i-1),
+                            'node_exits' => ($i+1 . ',' . $i-1),
                             'world_id' => $world_id['id']
                         )
                     );
@@ -387,11 +387,23 @@ class worldsController extends Controller
         return view('pages.load')->with('data', $data);
     }
 
-    public function save(){
+    public function save(Request $request, $world_id){
 
+        $exits = $request->input('saveInfo'); 
 
+        $exits_id = $request->input('saveInfoId');
 
+        foreach(explode('.', $exits) as $row){
+            $test3[] = $row;           
+        }
 
+        $count = count($test3);
+
+        for($i = 1; $i < $count; $i++){
+            $test4 = $test3[$i];
+            $test5 = $exits_id[$i-1];
+            DB::select(DB::raw("UPDATE `nodes` SET `node_exits` = '$test4' WHERE `world_id` = '$world_id' AND `node_name` = $test5"));
+        }
 
         return back()->with('save_success', 'Successfully saved');
     }

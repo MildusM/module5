@@ -24,7 +24,7 @@ function collapseWorld(){
     }
 }
 
-let variable = (node_data_info[0]['node_exits']).split(', ');
+let variable = (node_data_info[0]['node_exits']).split(',');
 
 // console.log(node_data_info[1]['node_exits']);
 // console.log(world_data_info['rectangle_y']);
@@ -111,6 +111,7 @@ class NodeGenerator{
     }
     printNode(){
         console.log(`Id: ${this.id} \n Exits: ${this.exits} `);
+        console.log(this.exits);
         ctx.beginPath();
         ctx.arc(this.xPos, this.yPos, this.radius, 0, Math.PI * 2);
         ctx.strokeStyle = 'black';
@@ -182,7 +183,7 @@ class WorldGenerator{
                 // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
                 let temp = new NodeGenerator(i, x, y, 25);
 
-                let variable = (node_data_info[i]['node_exits']).split(', ');
+                let variable = (node_data_info[i]['node_exits']).split(',');
                 for(let j = 0; j < variable.length; j++){
                     temp.exits[temp.exits.length] = variable[j];
                 }
@@ -253,7 +254,7 @@ class WorldGenerator{
                 // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
                 let temp = new NodeGenerator(i, x, y, 25);
 
-                let variable = (node_data_info[i]['node_exits']).split(', ');
+                let variable = (node_data_info[i]['node_exits']).split(',');
                 for(let j = 0; j < variable.length; j++){
                     temp.exits[temp.exits.length] = variable[j];
                 }
@@ -321,7 +322,7 @@ class WorldGenerator{
                 // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
                 let temp = new NodeGenerator(i, x, y, 25);
 
-                let variable = (node_data_info[i]['node_exits']).split(', ');
+                let variable = (node_data_info[i]['node_exits']).split(',');
                 for(let j = 0; j < variable.length; j++){
                     temp.exits[temp.exits.length] = variable[j];
                 }
@@ -414,6 +415,9 @@ let pathFind = false;
 
 let saveBtn = document.querySelector('.btn-save');
 let save = [];
+
+let save_id = [];
+
 
 window.addEventListener('click', function(){
     if(editRadio == document.activeElement){
@@ -544,9 +548,22 @@ window.addEventListener('click', function(){
 function saveExits(){
     // Update database
     for(let i = 0; i < test.numOfNodes; i++){
-        save[i] = [test.rooms[i].id, ...test.rooms[i].exits];
+        save[i] = [...test.rooms[i].exits ];
+        save_id[i] = [test.rooms[i].id]
+        
     }
-    console.log(save);
+    for(let i = 0; i < save.length; i++){
+        document.querySelector('#saveInfo').value += '.';
+        document.querySelector('#saveInfo').value += save[i];
+
+        document.querySelector('#saveInfoId').value += save_id[i];
+
+        // document.querySelector('#saveInfo').value += '.';
+    }
+    // console.log('Value: ' + document.querySelector('#saveInfo').value);
+    // // document.querySelector('#saveInfo').value = save;
+    // console.log('Value: ' + document.querySelector('#saveInfo').value);
+    // console.log(save);
         
     
 }

@@ -32,7 +32,7 @@ Route::get('/createWorld', [worldsController::class, 'create']);
 
 Route::get('/delete/{world_id}', [worldsController::class, 'delete']);
 
-Route::get('/save', [worldsController::class, 'save']);
+Route::get('/save/{world_id}', [worldsController::class, 'save']);
 
 Route::get('ajax', function(){
     return view('test');
