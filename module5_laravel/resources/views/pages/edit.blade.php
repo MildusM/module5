@@ -55,7 +55,9 @@
     </div>
 
     <canvas id="canvas" class="" style="border: 1px solid #333;"></canvas>  
-
+    <div style="" id="pathFindSum">
+        
+    </div>
     <div class="radio-toolbar" style="position: absolute; left: 50px;">
         <input type="radio"  name="radioBtn" id="edit" class="labelRadio mr-3">
         <label for="edit"><i class="fas fa-check"></i></label><span style="font-weight:200; font-size: large;"> Edit</span> <br><br>
