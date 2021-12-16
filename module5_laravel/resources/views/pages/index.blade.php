@@ -13,10 +13,10 @@
                 <p>Create or load your world. Every world contains nodes structured as a circle, rectangle, or branch.</p>
             </div>
             <div class="buttons row">
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-sm-6">
                     <a href="/create" class="btn btn-lg btn-gradient">Create</a>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-sm-6">
                     <a href="/load/noOrder" class="btn btn-lg btn-outline-gradient"><span>Load</span></a>
                 </div>
             </div>

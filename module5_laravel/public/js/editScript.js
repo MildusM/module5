@@ -550,6 +550,7 @@ function saveExits(){
         
     
 }
+
 let way = [];
 window.addEventListener('click', function(){
     if(pathFindRadio == document.activeElement){
@@ -561,24 +562,16 @@ window.addEventListener('click', function(){
 
     if(pathFind == true){
         // Look for a path
-        // alert(test.rooms[7].exits[2]);
-
-        // let variable = (node_data_info[i]['node_exits']).split(', ');
-        // for(let j = 0; j < variable.length; j++){
-        //     temp.exits[temp.exits.length] = variable[j];
-        // }
-
             let array1 = [];
             let lagra = [];
-            
             let hold = true;
             let kast = [];
             let bla = false;
             let double = 0;
-            let clicked2 = [];
+            let clicked = [];
 
+            // If canvas is clicked
             ctx.canvas.addEventListener('click', function(event){
-    
                 nodeClicked(event.layerX, event.layerY);
             });
 
@@ -588,23 +581,22 @@ window.addEventListener('click', function(){
                 let katet1 = (test.rooms[i].xPos - mx);
                 let katet2 = (test.rooms[i].yPos - my);
                 let hypotenusan = Math.sqrt((katet1**2) + (katet2**2));
-                // console.log('katet1: ' + katet1 + ' Katet2: ' + katet2 + ' hypotenusan: ' + hypotenusan);
                 if(hypotenusan > test.rooms[i].radius){
                     // Not inside a circle
                 }
+                // Inside a circle
                 else{
                     double++;
-                    clicked2[clicked2.length] = i;
+                    clicked[clicked.length] = i;
                     if(double == 2) {
                         double=0;
-                        start = clicked2[0];
-                        goal = clicked2[1];
+                        start = clicked[0];
+                        goal = clicked[1];
 
                         array1.push([start]);
-                        console.log('\nstart\n\n');
                         while(hold == true){
                             let temp = array1[0];
-                            // För varje exit
+                            // For every exit
                             for(let a = 0; a < (test.rooms[temp[temp.length - 1]].exits.length); a++){
 
                                 // If duplicates
@@ -647,6 +639,7 @@ window.addEventListener('click', function(){
                             
                             
                         }
+                        // Display buttons to show path
                         let pathFindSum = document.querySelector('#pathFindSum');
                             if(way.length >= 1) {
                                 pathFindSum.innerHTML=`<button class="btn btn-dark" onclick="pathFindColor(0)" style="background:linear-gradient(to right, #B983FF, #94B3FD); border-radius:50%; border:none; padding: 15px 5px; margin-left: 2%;">Path 1</button>`;
@@ -661,7 +654,7 @@ window.addEventListener('click', function(){
                         console.log(way[0]);
                         console.log(way[1]);
                         console.log(way[2]);
-                        clicked2 = [];
+                        clicked = [];
                     }
                 }
             }
@@ -674,9 +667,11 @@ window.addEventListener('click', function(){
 
 });
 
+// Show path
 let path = 0;
 function pathFindColor(x) {                     
     for(let i=0; i<(way[path].length-1); i++){
+        // "Hide" path line
         ctx.beginPath();
         ctx.moveTo(test.rooms[way[path][i]].xPos, test.rooms[way[path][i]].yPos);
         ctx.lineTo(test.rooms[way[path][i+1]].xPos, test.rooms[way[path][i+1]].yPos);
@@ -684,6 +679,7 @@ function pathFindColor(x) {
         ctx.lineWidth = 3;
         ctx.stroke();
         ctx.closePath();
+        // Draw original path
         ctx.beginPath();
         ctx.moveTo(test.rooms[way[path][i]].xPos, test.rooms[way[path][i]].yPos);
         ctx.lineTo(test.rooms[way[path][i+1]].xPos, test.rooms[way[path][i+1]].yPos);
@@ -695,6 +691,7 @@ function pathFindColor(x) {
         test.printWorld();
     }
     for(let i=0; i<(way[x].length-1); i++){
+        // Draw path line
         ctx.beginPath();
         ctx.moveTo(test.rooms[way[x][i]].xPos, test.rooms[way[x][i]].yPos);
         ctx.lineTo(test.rooms[way[x][i+1]].xPos, test.rooms[way[x][i+1]].yPos);
