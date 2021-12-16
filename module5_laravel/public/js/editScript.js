@@ -111,7 +111,7 @@ class NodeGenerator{
     }
     printNode(){
         console.log(`Id: ${this.id} \n Exits: ${this.exits} `);
-        console.log(this.exits);
+        // console.log(this.exits);
         ctx.beginPath();
         ctx.arc(this.xPos, this.yPos, this.radius, 0, Math.PI * 2);
         ctx.strokeStyle = 'black';
@@ -248,7 +248,7 @@ class WorldGenerator{
                     start = 0;
                 }
                 y = (rad * 70);
-                x = (xCenter) + (100 * start); 
+                x = (100) + (100 * start); 
                 start++;
 
                 // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
@@ -444,104 +444,164 @@ window.addEventListener('click', function(){
     if(edit == true){
     
         ctx.canvas.addEventListener('click', function(event){
-    
             clickOnNode(event.layerX, event.layerY);
         });
         
         let clickedNodes = [];
         let qClicked = 0;
+
         
-        function clickOnNode(mx, my){
+        // else{
+
+
+            function clickOnNode(mx, my){
             
-            for(let i = 0; i < test.numOfNodes; i++){
-                let katet1 = (test.rooms[i].xPos - mx);
-                let katet2 = (test.rooms[i].yPos - my);
-                let hypotenusan = Math.sqrt((katet1**2) + (katet2**2));
-                if(hypotenusan > test.rooms[i].radius){
-                    // Not inside a circle
-                }
-                else{
-                    // Inside a circle
-                    test.rooms[i].clicked('red');
-                    test.printWorld();
-        
-                    clickedNodes[clickedNodes.length] = (test.rooms[i].id);
-                    qClicked++;
-                    let double = false;
-                    if(qClicked == 2){
-                        // Checks if we should remove a path
-                        for(let a = 0; a < test.rooms[clickedNodes[0]].exits.length; a++){
-                            if(test.rooms[clickedNodes[0]].exits[a] == clickedNodes[1]){
-                                // If true, it means there already is a path -> Delete path
-                                double = true;
-                                test.rooms[clickedNodes[0]].exits.splice(a, 1);  
-                                for(let j = 0; j < test.rooms[clickedNodes[1]].exits.length; j++){
-                                    if(test.rooms[clickedNodes[1]].exits[j] == clickedNodes[0]){
-                                        test.rooms[clickedNodes[1]].exits.splice(j, 1); 
+                for(let i = 0; i < test.numOfNodes; i++){
+                    let katet1 = (test.rooms[i].xPos - mx);
+                    let katet2 = (test.rooms[i].yPos - my);
+                    let hypotenusan = Math.sqrt((katet1**2) + (katet2**2));
+                    if(hypotenusan > test.rooms[i].radius){
+                        // Not inside a circle
+                    }
+                    else{
+                        // Inside a circle
+                        // test.rooms[i].clicked('red');
+                        test.printWorld();
+            
+                        clickedNodes[clickedNodes.length] = (test.rooms[i].id);
+                        qClicked += 1;
+
+                        if(world_data_info['world_type'] == 'rectangular'){
+                            // if(qClicked == 1){
+                                // Dödar rum
+                                if(test.rooms[i].exits.length > 0){
+                                    qClicked = 0;
+                                    test.rooms[i].clicked('black');
+                                    
+
+                                    ctx.beginPath();
+                                    ctx.moveTo(test.rooms[i].xPos, test.rooms[i].yPos);
+                                    for(let j = 0; j < test.rooms[i].exits.length; j++){
+                                        ctx.lineTo(test.rooms[test.rooms[i].exits[j]].xPos, test.rooms[test.rooms[i].exits[j]].yPos);
+                                        ctx.moveTo(test.rooms[i].xPos, test.rooms[i].yPos);
                                     }
-                                }      
-                            }
-                            else if(test.rooms[clickedNodes[1]].exits[a] == clickedNodes[0]){
-                                // If true, it means there already is a path -> Delete path
-                                double = true;
-                                test.rooms[clickedNodes[0]].exits.splice(a, 1); 
-                                for(let j = 0; j < test.rooms[clickedNodes[1]].exits.length; j++){
-                                    if(test.rooms[clickedNodes[1]].exits[j] == clickedNodes[0]){
-                                        test.rooms[clickedNodes[1]].exits.splice(j, 1); 
+                                    // ctx.lineTo(test.rooms[0].xPos, test.rooms[0].yPos);
+                                    
+                                    ctx.strokeStyle = 'white';
+                                    ctx.lineWidth = 3;
+                                    ctx.stroke();
+                                    ctx.closePath();
+                                    qClicked = 0;
+                                    clickedNodes = [];
+                                    ctx.lineWidth = 1;
+                                    test.printWorld();
+                                    
+                                    clickedNodes = [];
+
+                                    // Plockar bort exits
+                                    for(let j = 0; j < test.rooms[i].exits.length; j++){
+                                        test.rooms[test.rooms[i].exits[j]].exits.splice(test.rooms[i], 1); 
                                     }
-                                }      
-                            }
-                        }
-                        // If the path does not exits -> make a path
-                        if(double == false){
-                            qClicked = 0;
-                            for(let j = 0; j < clickedNodes.length; j++){
-                                test.rooms[clickedNodes[j]].clicked('orange');
-                                if(j == 0){
-                                    test.rooms[clickedNodes[j]].exits[test.rooms[clickedNodes[j]].exits.length] = (clickedNodes[1]);
+                                    test.rooms[i].exits = [];
+
+                                    
+
+                                    for(let j = 0; j < test.numOfNodes; j++){
+                                        if(test.rooms[j].exits == '' || test.rooms[j].exits.length == 0){
+                                            test.rooms[i].clicked('black');
+                                            test.printWorld();
+                                        }
+                                    }
                                 }
                                 else{
-                                    test.rooms[clickedNodes[j]].exits[test.rooms[clickedNodes[j]].exits.length] = (clickedNodes[0]);
+
                                 }
-                            }
-                            // Draw the path (line)
-                            console.log(clickedNodes[0]);
-                            ctx.beginPath();
-                            ctx.moveTo(test.rooms[clickedNodes[0]].xPos, test.rooms[clickedNodes[0]].yPos);
-                            ctx.lineTo(test.rooms[clickedNodes[1]].xPos, test.rooms[clickedNodes[1]].yPos);
-                            ctx.strokeStyle = 'black';
-                            ctx.stroke();
-                            ctx.closePath();
-                            qClicked = 0;
-                            console.log('inte tom: ' + clickedNodes);
-                            clickedNodes = [];
-                            console.log('tom: ' + clickedNodes);
-                            test.printWorld();
+                            // }
                         }
                         else{
-                            // If the path already exits -> delete the path
-                            qClicked = 0;
-                            for(let j = 0; j < clickedNodes.length; j++){
-                                test.rooms[clickedNodes[j]].clicked('orange');
-                            }
-                            ctx.beginPath();
-                            ctx.moveTo(test.rooms[clickedNodes[0]].xPos, test.rooms[clickedNodes[0]].yPos);
-                            ctx.lineTo(test.rooms[clickedNodes[1]].xPos, test.rooms[clickedNodes[1]].yPos);
-                            ctx.strokeStyle = 'white';
-                            ctx.lineWidth = 3;
-                            ctx.stroke();
-                            ctx.closePath();
-                            qClicked = 0;
-                            clickedNodes = [];
-                            ctx.lineWidth = 1;
+
+                            test.rooms[i].clicked('red');
                             test.printWorld();
-                            
-                        }
-                        double = false;
-                    } 
+
+                            let double = false;
+                            if(qClicked == 2){
+                                // Checks if we should remove a path
+                                for(let a = 0; a < test.rooms[clickedNodes[0]].exits.length; a++){
+                                    if(test.rooms[clickedNodes[0]].exits[a] == clickedNodes[1]){
+                                        // If true, it means there already is a path -> Delete path
+                                        double = true;
+                                        test.rooms[clickedNodes[0]].exits.splice(a, 1);  
+                                        for(let j = 0; j < test.rooms[clickedNodes[1]].exits.length; j++){
+                                            if(test.rooms[clickedNodes[1]].exits[j] == clickedNodes[0]){
+                                                test.rooms[clickedNodes[1]].exits.splice(j, 1); 
+                                            }
+                                        }      
+                                    }
+                                    else if(test.rooms[clickedNodes[1]].exits[a] == clickedNodes[0]){
+                                        // If true, it means there already is a path -> Delete path
+                                        double = true;
+                                        test.rooms[clickedNodes[0]].exits.splice(a, 1); 
+                                        for(let j = 0; j < test.rooms[clickedNodes[1]].exits.length; j++){
+                                            if(test.rooms[clickedNodes[1]].exits[j] == clickedNodes[0]){
+                                                test.rooms[clickedNodes[1]].exits.splice(j, 1); 
+                                            }
+                                        }      
+                                    }
+                                }
+                                // If the path does not exits -> make a path
+                                if(double == false){
+                                    qClicked = 0;
+                                    for(let j = 0; j < clickedNodes.length; j++){
+                                        test.rooms[clickedNodes[j]].clicked('orange');
+                                        if(j == 0){
+                                            test.rooms[clickedNodes[j]].exits[test.rooms[clickedNodes[j]].exits.length] = (clickedNodes[1]);
+                                        }
+                                        else{
+                                            test.rooms[clickedNodes[j]].exits[test.rooms[clickedNodes[j]].exits.length] = (clickedNodes[0]);
+                                        }
+                                    }
+                                    // Draw the path (line)
+                                    console.log(clickedNodes[0]);
+                                    ctx.beginPath();
+                                    ctx.moveTo(test.rooms[clickedNodes[0]].xPos, test.rooms[clickedNodes[0]].yPos);
+                                    ctx.lineTo(test.rooms[clickedNodes[1]].xPos, test.rooms[clickedNodes[1]].yPos);
+                                    ctx.strokeStyle = 'black';
+                                    ctx.stroke();
+                                    ctx.closePath();
+                                    qClicked = 0;
+                                    console.log('inte tom: ' + clickedNodes);
+                                    clickedNodes = [];
+                                    console.log('tom: ' + clickedNodes);
+                                    test.printWorld();
+                                }
+                                else{
+                                    // If the path already exits -> delete the path
+                                    qClicked = 0;
+                                    for(let j = 0; j < clickedNodes.length; j++){
+                                        test.rooms[clickedNodes[j]].clicked('orange');
+                                    }
+                                    ctx.beginPath();
+                                    ctx.moveTo(test.rooms[clickedNodes[0]].xPos, test.rooms[clickedNodes[0]].yPos);
+                                    ctx.lineTo(test.rooms[clickedNodes[1]].xPos, test.rooms[clickedNodes[1]].yPos);
+                                    ctx.strokeStyle = 'white';
+                                    ctx.lineWidth = 3;
+                                    ctx.stroke();
+                                    ctx.closePath();
+                                    qClicked = 0;
+                                    clickedNodes = [];
+                                    ctx.lineWidth = 1;
+                                    test.printWorld();
+                                    
+                                }
+                                double = false;
+                            } 
+                        }    
+                    }
                 }
             }
-        }   
+        // }
+        
+           
     }
 });
 
@@ -556,6 +616,7 @@ function saveExits(){
         document.querySelector('#saveInfo').value += '.';
         document.querySelector('#saveInfo').value += save[i];
 
+        document.querySelector('#saveInfoId').value += '.';
         document.querySelector('#saveInfoId').value += save_id[i];
 
         // document.querySelector('#saveInfo').value += '.';

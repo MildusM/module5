@@ -260,7 +260,7 @@ class WorldGenerator{
                     start = 0;
                 }
                 y = (rad * 70);
-                x = (xCenter) + (100 * start); 
+                x = (100) + (100 * start); 
                 start++;
 
                 // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
