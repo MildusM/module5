@@ -1,13 +1,7 @@
 
 @php
-            var_dump($test);
+            var_dump($test[0]);
         @endphp
 
-@php
-            var_dump($test2);
-        @endphp
 
-@php
-var_dump($test3);
-@endphp
 

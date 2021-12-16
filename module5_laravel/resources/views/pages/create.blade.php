@@ -13,9 +13,9 @@
 
     </div>
 
-    @if (\Session::has('create_success'))
-        <div style="width: 200px;" class="">
-            <span><p class="m-3"><i class="fal fa-check mr-4"></i> {!! \Session::get('create_success') !!}</p></span>
+    @if ((\Session::has('create_success')) || (\Session::has('duplicate_deleted')))
+        <div style="width: 600px;" class="">
+            <span><p class="m-3"><i class="fal fa-check mr-4"></i> {!! \Session::get('create_success') !!} {!! \Session::get('duplicate_deleted') !!}</p></span>
         </div>
     @endif
 

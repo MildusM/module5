@@ -35,6 +35,9 @@ class worldsController extends Controller
         }
 
         $findName = world::select('world_name')->firstWhere('world_name', $world_name);
+        // $findId = world::select('id')->firstWhere('world_name', $world_name);
+        // $findId = DB::select(DB::raw("SELECT `id` FROM `worlds` WHERE `world_name` = 'fdfdf'"));
+        $findId = DB::table('worlds')->select('id')->where('world_name', '=', $world_name)->get();
         if ($findName === null) {
             DB::table('worlds')->insert(
                 array(
@@ -52,6 +55,18 @@ class worldsController extends Controller
         else {
             $delRow = world::select('*')->where('world_name', $world_name);
             $delRow->delete();
+
+            $findId= json_decode( json_encode($findId), true);
+            // $findId= implode(' ', array_values($findId));
+            // $nodes = \App\Models\Node::whereIn('world_id',$findId)->get();
+            // $nodes = node::select('*')->where('world_id', $findId);
+            // $nodes->delete();
+            // for($i = 0; $i<2; $i++){
+                $delNode = Node::select('*')->where('world_id', $findId);
+                $delNode->delete();
+            // }
+            
+            // DB::select(DB::raw("DELETE FROM `nodes` WHERE world_id = $findId"));
 
             // $newName = $world_name.'_'.time();
             DB::table('worlds')->insert(
@@ -343,10 +358,13 @@ class worldsController extends Controller
                 
             }
         }
-
+        if ($findName === null) {
         return back()->with('create_success', 'World Created');
         // return view('test')->with('test', $test);
-
+        }
+        else {
+            return back()->with('duplicate_deleted', 'and duplicate was deleted')->with('create_success', 'World Created');
+        }
     }
 
     public function load($order){
