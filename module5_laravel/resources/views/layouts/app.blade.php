@@ -20,11 +20,11 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta2/css/all.css">
 </head>
 <body class="min-h-screen flex flex-col">
-    <div id="msg">This message</div>
+    {{-- <div id="msg">This message</div> --}}
 
-    <?php
-         echo Form::button('Replace Message',['onClick'=>'getMessage()']);
-      ?>
+    {{-- Php klammer runt --}}
+         {{-- echo Form::button('Replace Message',['onClick'=>'getMessage()']); --}}
+     
 
     {{-- @include('./inc/header')
 

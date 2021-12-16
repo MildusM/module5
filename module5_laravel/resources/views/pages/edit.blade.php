@@ -65,7 +65,9 @@
         <button class="labelRadio mr-3"><i class="fas fa-check"></i></button><span style="font-weight:200; font-size: large;"> Find path</span><br><br> --}}
     </div>
     <div id="save">
-        {{Form::open(array('action' => 'App\Http\Controllers\worldsController@save', 'method' => 'get'))}}
+        {{Form::open(array('action' => array('App\Http\Controllers\worldsController@save', $world_id), 'method' => 'get'))}}
+            <input type="text" id="saveInfo" name="saveInfo" style="display: none">
+            <input type="text" id="saveInfoId" name="saveInfoId" style="display: none">
             <button disabled onclick="saveExits()" style="position: absolute; right: 20px;" class="btn-gradient btn-generate mt-3 btn-save">Save</button>
         {{Form::close()}}
     </div>

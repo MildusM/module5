@@ -37,7 +37,7 @@ function collapseWorld(){
     }
 }
 
-let variable = (node_data_info[0]['node_exits']).split(', ');
+let variable = (node_data_info[0]['node_exits']).split(',');
 
 console.log(node_data_info[1]['node_exits']);
 console.log(world_data_info['rectangle_y']);
@@ -195,7 +195,7 @@ class WorldGenerator{
                 // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
                 let temp = new NodeGenerator(i, x, y, 25);
 
-                let variable = (node_data_info[i]['node_exits']).split(', ');
+                let variable = (node_data_info[i]['node_exits']).split(',');
                 for(let j = 0; j < variable.length; j++){
                     temp.exits[temp.exits.length] = variable[j];
                 }
@@ -266,7 +266,7 @@ class WorldGenerator{
                 // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
                 let temp = new NodeGenerator(i, x, y, 25);
 
-                let variable = (node_data_info[i]['node_exits']).split(', ');
+                let variable = (node_data_info[i]['node_exits']).split(',');
                 for(let j = 0; j < variable.length; j++){
                     temp.exits[temp.exits.length] = variable[j];
                 }
@@ -334,7 +334,7 @@ class WorldGenerator{
                 // Noden skapas, och får id, nya x- och y-koordinater, radien för noden är ett statiskt värde
                 let temp = new NodeGenerator(i, x, y, 25);
 
-                let variable = (node_data_info[i]['node_exits']).split(', ');
+                let variable = (node_data_info[i]['node_exits']).split(',');
                 for(let j = 0; j < variable.length; j++){
                     temp.exits[temp.exits.length] = variable[j];
                 }
