@@ -397,14 +397,19 @@ class worldsController extends Controller
             $test3[] = $row;           
         }
 
+        foreach(explode('.', $exits_id) as $row2){
+            $exits_id2[] = $row2;
+        }
+
         $count = count($test3);
 
         for($i = 1; $i < $count; $i++){
             $test4 = $test3[$i];
-            $test5 = $exits_id[$i-1];
+            $test5 = $exits_id2[$i];
             DB::select(DB::raw("UPDATE `nodes` SET `node_exits` = '$test4' WHERE `world_id` = '$world_id' AND `node_name` = $test5"));
         }
 
+        // return view('test')->with('test', $exits_id2);
         return back()->with('save_success', 'Successfully saved');
     }
 }
