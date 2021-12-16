@@ -29,26 +29,26 @@
         <div class="loadWorlds">
 
             <div class="row listTitles">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-3">name</div>
-                <div class="col-lg-3">type</div>
-                <div class="col-lg-3">number of nodes</div>
+                <div class="col-lg-3 col-sm-3"></div>
+                <div class="col-lg-3 col-sm-3">name</div>
+                <div class="col-lg-3 col-sm-3">type</div>
+                <div class="col-lg-3 col-sm-3">number of nodes</div>
             </div>
 
             @foreach ($data as $world)
             <div class="row worldValues">
 
-                <div class="col-lg-3 radioInput radio-toolbar">
-                        <input type="radio"  name="radioBtn" id="{{$world->id}}" value="{{$world->id}}">
+                <div class="col-lg-3 col-sm-3 radioInput radio-toolbar">
+                        <input type="radio"  name="radioBtn" id="{{$world->id}}" class="loadRadio" value="{{$world->id}}">
                         <label for="{{$world->id}}"><i class="fas fa-check"></i></label>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-sm-3">
                     <p>{{$world->world_name}}</p>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-sm-3">
                     <p>{{$world->world_type}}</p>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-sm-3">
                     <p>{{$world->join('nodes', 'nodes.world_id', '=', 'worlds.id')->where('nodes.world_id', '=', $world->id)->count()}}</p>
                 </div>
 

@@ -29,11 +29,11 @@
             {{Form::open(array('action' => 'App\Http\Controllers\worldsController@create', 'method' => 'get'))}}
             {{-- <form action="#"> --}}
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 createInputs">
                         {{Form::text('world_name', '', ['class' => 'input worldNameInput', 'type' => 'text', 'required' => '', 'placeholder' => 'Name of your world...'])}}
                         {{-- <input onchange="selected()" class="input worldNameInput" type="text" required placeholder="Name of your world..."> --}}
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 createInputs">
                    {{-- {{Form::select('select_type',['Type of world' => ['Rectangular', 'Circular', 'Branch']
                         ])}} --}}
                         <select onchange="selected()" name="world_type" id="options" class="input">
@@ -43,7 +43,7 @@
                             <option class="latest" value="branch">Branch</option>
                         </select>
                     </div>
-                    <div class="col-lg-4 type-values">
+                    <div class="col-lg-4 type-values createInputs">
                         
                     </div>
                 </div>

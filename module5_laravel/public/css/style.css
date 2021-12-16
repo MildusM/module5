@@ -287,19 +287,49 @@ body{
 }
 
 /* Canvas go-back btn */
-.go-back-c{
+.go-back-c {
     color: #fff; 
     border: 2px solid #fff; 
     border-radius: 30px; 
-    width: 12%;
+    width: 15%;
     padding: 0.5rem 1.5rem;
     position: absolute;
-    right:    40px;
-    bottom:   -85px;
+    right:    1%;
+    bottom:   -22%;
 }
 
 .go-back-c:hover{
     font-size: 20px !important;
     padding: 0.58rem 1.5rem;
     color: #fff; 
+}
+
+@media (max-width: 1090px) {
+    
+    .index .buttons {
+        width: 65%;
+    }
+
+    .radioInput {
+        text-align: left;
+    }
+
+    .load-btn {
+        margin-bottom: 1%;
+        width: 25%;
+    }
+
+    .canvas-btn .btn-light,
+    .canvas-btn .btn-outline-light {
+        width: 20%;
+    }
+    
+    .go-back-c {
+        width: 22%;
+    }
+
+    .createInputs {
+        margin: 2% auto;
+    }
+
 }
